@@ -2,9 +2,7 @@
 // (c)2026 Matthew Horton (GPL 2.0)
 
 // Function to add elements to elements list
-
-// To do: Add option to add function to element
-// This would be for certain forms (NP, VP, CP, IP)
+// Allows user to edit any label in elements list
 
 import $ from './jquery-cdn.js';
 import {bracketWrapper,sentence_object} from './main.js';
@@ -54,14 +52,6 @@ export function updateElements () {
 				"title": "change this label!",
 				text: element_class.split("-")[0].substring(1)+" --> "+getWordsByClass(element_class)
 			});
-
-/* 		if (element_class.split("-")[0].substring(0,1) === "b") {
-			$element_function = $('<span/>', {
-				"id": "element-function" + i,
-				"class": "element-function " + element_class,
-				text: "(add function)"
-			});
-		} */
 		
 		$("#element-list").append($("<span/>", {"class": "element-wrapper", "id": "element-wrapper-"+i}));
 		$("#element-wrapper-"+i).append($delete_element);

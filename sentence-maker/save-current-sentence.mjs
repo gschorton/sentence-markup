@@ -2,15 +2,17 @@
 // (c)2026 Matthew Horton (GPL 2.0)
 
 // Function to save current sentence
-// Check if loaded from saved array
-// Otherwise just push into array
+// Check if already in active_sentences
+// Add to active_sentences if missing
+// Update if sentence_objects are not identical
+// Prevent save if words of new sentence are identical
+// to one saved in active_sentences 
 
 import $ from './jquery-cdn.js';
 import {sentence_object} from './main.js';
 import {showActiveSentences} from './show-active-sentences.mjs';
 
 export let active_sentences = [];
-export let active_sentences_temp = [];
 
 export function saveCurrentSentence (){
 	
@@ -61,22 +63,3 @@ export function saveCurrentSentence (){
 	console.log("Active sentence objects ("+active_sentences.length+"):", active_sentences);
 	showActiveSentences(active_sentences);
 }
-
-	// if active, remove and re-add to avoid duplicating	
-//	for (let i=0; i < active_sentences.length; i++){
-//		if(active_sentences[i].id === current_sentence.id){
-//			active_sentences.push(JSON.parse(JSON.stringify(current_sentence)));
-//			}else{
-//				active_sentences[i] = JSON.parse(JSON.stringify(current_sentence));
-//			}
-//		}
-
-// Save loaded sentences
-// Save new sentences
-// To come back to a sentence and update it, use classes
-// to indicate new or loaded and assign id to DOM to keep
-// track of which sentence object it is in the stored array
-
-// The sentence_objects in the array can be updated and then
-// the whole array can be downloaded, instead of one sentence
-// at a time.

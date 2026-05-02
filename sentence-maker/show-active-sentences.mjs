@@ -69,14 +69,3 @@ export function showActiveSentences (items) {
 	$('.sent-obj-active[data-id*="new"]').addClass("sent-obj-new");
 	$("#save-json").show();
 }
-
-
-// Use class "active" to list actice sentences, whether loaded or new
-
-// This would modify an array and remove only one element starting at index 2.
-// fields.splice(2,1);
-// splice then push. Active sentence is always the last in the array
-// might not need to do it this way
-// can use DOM classes instead and create save array on the fly
-// the new array would be for new and/or updated sentences
-// or could use array of loaded sentences to update

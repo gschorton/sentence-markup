@@ -7,7 +7,6 @@
 // Then by general to specific class (NP befort N)
 // Add label for that open bracket
 // Close brackets added to last instance of class in opposite order
-// This ensures hierarchy of brackets
 // Also tests for crossed bracket sets in case of parser error
 
 import $ from './jquery-cdn.js';
