@@ -1,0 +1,262 @@
+option, h2, #highlight {
+  margin: 0;
+  padding: 0;
+}
+
+#options {margin-top: 0}
+
+
+body {
+  color: black;
+  background-color: #fdfdfd;
+  font-family: "Bitsream Vera Sans", Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+/* Modified the above styles to avoid css conflicts with other part of the site that include jssyntaxtree*/
+
+h1 {
+  background-color: #125475;
+  color: #eee;
+  padding: 5px 15px;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+h2 {
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: #333;
+}
+
+textarea, /*removed button*/
+select {
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+#code { /*renamed with id*/
+  width: 99%;
+  z-index: 2;
+  resize: vertical;
+}
+
+#code, /*renamed with id*/
+#highlight {
+  font-family: monospace;
+  font-size: 1.1rem;
+  padding: 3px;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+footer {
+  text-align: center;
+  font-size: smaller;
+  margin-top: 40px;
+  color: #777;
+  clear: both;
+}
+
+footer a {
+  color: #00b;
+  text-decoration: none;
+}
+
+input[type="checkbox"],
+input[type="radio"],
+label span {
+  display: none;
+}
+
+label {
+  font-size: 0.9rem;
+  display: inline-block;
+  width: 40px;
+  padding-top: 40px;
+  padding-bottom: 4px;
+  margin: 2px 3px;
+  border-radius: 5px;
+}
+
+label[for="nodecolor"] {
+  background: url("icons/palette.svg") no-repeat center center;
+}
+
+label[for="autosub"] {
+  background: url("icons/subscript.svg") no-repeat center center;
+}
+
+label[for="triangles"] {
+  background: url("icons/triangle.svg") no-repeat center center;
+}
+
+label[for="terminal_lines"] {
+  background: url("icons/terminal_lines.svg") no-repeat center center;
+}
+
+label[for="highlighting"] {
+  background: url("icons/highlighter.svg") no-repeat center center;
+}
+
+label[for="align_top"] {
+  background: url("icons/vertical_align_top.svg") no-repeat center center;
+}
+
+label[for="align_leaves"] {
+  background: url("icons/vertical_align_center.svg") no-repeat center center;
+}
+
+label[for="align_bottom"] {
+  background: url("icons/vertical_align_bottom.svg") no-repeat center center;
+}
+
+input[type="checkbox"]:checked + label,
+input[type="radio"]:checked + label {
+  background-color: #3eb5f044;
+}
+
+input[type="range"] {
+  outline: 0;
+  border: 0;
+  border-radius: 0.8rem;
+  width: 150px;
+  height: 18px;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #ddd;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 28px;
+    height: 28px;
+    cursor: ew-resize;
+    border-radius: 50%;
+    background-color: #3eb5f0;
+  }
+}
+
+select {
+  padding: 8px;
+  margin: 1px;
+  border-radius: 0.8rem;
+  font-size: 0.9rem;
+}
+
+#font_select,
+#spacing_select {
+  display: flex;
+  padding: 3px 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.separator {
+  border-left: 1px solid #999;
+  margin-left: 3px;
+  padding-left: 3px;
+}
+
+.option h2 {
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding-bottom: 4px;
+}
+
+#options {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #eee;
+  padding: 5px 10px;
+  margin-bottom: 15px;
+}
+
+#input {
+  margin: 15px auto;
+  width: 96%;
+}
+
+#tree {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#tip {
+  margin-top: 40px;
+  color: #555;
+  text-align: center;
+  font-style: italic;
+}
+
+#version {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  color: #bbb;
+  font-size: 0.8em;
+}
+
+#parse-error {
+  color: #666;
+  height: 0.7em;
+  font-size: 0.7em;
+  display: block;
+}
+
+#canvas {
+  cursor: pointer;
+}
+
+#download {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+#download button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#download button:hover {
+  background-color: #3eb5f044;
+}
+
+#download_png {
+  background: url("icons/download_png.svg") no-repeat center center;
+}
+
+#download_svg {
+  background: url("icons/download_svg.svg") no-repeat center center;
+}
+
+#editor {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+}
+
+#highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: transparent;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+  border: 1px solid transparent;
+}
+
+mark {
+  background: rgba(255, 255, 0, 0.3);
+}

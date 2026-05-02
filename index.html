@@ -1,0 +1,240 @@
+<!doctype html>
+<title>Sentence Markup for Bracket Notation</title>
+<link rel="stylesheet" href="sentence-maker/pagination.css" />
+<link rel="stylesheet" type="text/css" href="tree-maker/default.css" />
+<link rel="stylesheet" type="text/css" href="sentence-maker/default.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<script type="module" src="sentence-maker/main.js"></script>
+<script type="module" src="tree-maker/syntaxtree.js"></script>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<!--	All content below, except the <div> with the
+		id "tree-maker" developed by Matthew Horton		-->
+
+<div id="change-element" class="modal change-element-modal"></div>
+<div id="find-sentence" class="modal find-sentence-modal">
+	<div id="filters">
+		<form id="filter-options">
+			<button id="filter-option-all">Show all</button> <button id="filter-option-available">Show available</button> <input type="reset" class="filter-option-reset" value="Reset"> <button id="filter-option-submit">Submit</button> <span id="filter-option-submit-feedback">Filters updated!</span>
+			<div style="margin-top: 5px"><input type="checkbox" class="filter-option fil-sen-mar" id="already-marked"> <label class="filter-option" for="already-marked">View all marked sentences</label></div>
+			<span class="filters-heading filters-heading-space">Find sentences with certain features:</span>
+			<ul id="side-menu">
+				<button style="display:block; margin-top:10px" class="menu-toggle menu-toggle-top">Sentence type</button>
+				<ul class="submenu" style="display:none;">
+					<input type="checkbox" class="filter-option fil-sen-typ" value="si" id="si"> <label class="filter-option" for="si">simple</label>
+					<input type="checkbox" class="filter-option fil-sen-typ" value="cd" id="cd"> <label class="filter-option" for="cd">compound</label>
+					<input type="checkbox" class="filter-option fil-sen-typ" value="cx" id="cx"> <label class="filter-option" for="cx">complex</label>
+					<input type="checkbox" class="filter-option fil-sen-typ" value="cc" id="cc"> <label class="filter-option" for="cc">compound-complex</label>
+				</ul>
+				<button style="display:block" class="menu-toggle menu-toggle-top">Sentence pattern</button>
+				<ul class="submenu" style="display:none;">
+					<input type="checkbox" class="filter-option fil-sen-pat" value="1" id="sen-one"> <label class="filter-option" for="sen-one">1</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="2" id="sen-two"> <label class="filter-option" for="sen-two">2</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="3" id="sen-thr"> <label class="filter-option" for="sen-thr">3</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="4" id="sen-fou"> <label class="filter-option" for="sen-fou">4</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="5" id="sen-fiv"> <label class="filter-option" for="sen-fiv">5</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="6" id="sen-six"> <label class="filter-option" for="sen-six">6</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="7" id="sen-sev"> <label class="filter-option" for="sen-sev">7</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="8" id="sen-eig"> <label class="filter-option" for="sen-eig">8</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="9" id="sen-nin"> <label class="filter-option" for="sen-nin">9</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="10" id="sen-ten"> <label class="filter-option" for="sen-ten">10</label>
+				</ul>
+				<button style="display:block" class="menu-toggle menu-toggle-top">Sentence length</button>
+				<ul class="submenu" style="display:none;">
+					Min: <input type="number" class="filter-option fil-sen-len-min" value="1" style="width: 50px" id="sen-len-min">
+					Max: <input type="number" class="filter-option fil-sen-len-min" value="100" style="width: 50px" id="sen-len-max">
+					<button id="button-len">update</button>
+				</ul>
+				<span id="error-len"></span>
+				<span class="radio-wrapper">
+				<button style="display:inline-block" class="menu-toggle menu-toggle-top">Search by punctuation</button>
+				<span class = "fil-sen-pun-opt"><input type="radio" name="fil-sen-pun-opt" value="sen-pun-any" id="sen-pun-any" checked /> any <input type="radio" name="fil-sen-pun-opt" value="sen-pun-all" id="sen-pun-all" /> all</span>
+				</span>
+				<ul class="submenu" style="display:none;">
+					<input type="text" value="" placeholder="separate punctuation marks with spaces" class="filter-option fil-sen-pun-inp" id="sen-pun-inp" style="width: 300px">
+							<button id="button-pun">find</button>
+				</ul>
+				<span class="radio-wrapper">
+				<button style="display:inline-block" class="menu-toggle menu-toggle-top">Search by exact words</button>
+				<span class = "fil-sen-wor-opt"><input type="radio" name="fil-sen-wor-opt" value="sen-wor-any" id="sen-wor-any" checked /> any <input type="radio" name="fil-sen-wor-opt" value="sen-wor-all" id="sen-wor-all" /> all</span>
+				</span>
+				<ul class="submenu" style="display:none;">
+					<input type="text" value="" placeholder="separate words with spaces" class="filter-option fil-sen-wor-inp" id="sen-wor-inp" style="width: 300px">
+							<button id="button-wor">find</button>
+				</ul>
+				<span class="radio-wrapper">
+				<button style="display:inline-block" class="menu-toggle menu-toggle-top">Search by partial strings</button>
+				<span class = "fil-sen-str-opt"><input type="radio" name="fil-sen-str-opt" value="sen-str-any" id="sen-str-any" checked /> any <input type="radio" name="fil-sen-str-opt" value="sen-str-all" id="sen-str-all" /> all</span>
+				</span>
+				<ul class="submenu" style="display:none;">
+					<input type="text" value="" placeholder="separate strings with spaces" class="filter-option fil-sen-str-inp" id="sen-str-inp" style="width: 300px">
+							<button id="button-str">find</button>
+				</ul>
+			</ul>
+		</form>
+		<div id="sentence-input-options">
+			<span>Choose a file from the list:</span>
+			<div id="file-dropdown"><select id="file-options"></select></div>
+			<span style="display:block">Or type in a sentence of your own:</span>
+			<textarea id="sentence-input-text" rows="5" cols="50">Michael forgot for whom Tracy had to put up the book.</textarea>
+			<div id="sentence-input-buttons">
+				<button id="load-button">Load</button>
+			</div>
+		</div>
+	</div>
+	<div id="filter-results"></div>
+</div>
+
+<div id="wrapper">
+	<div id="code-generator">
+		<div id="sentence-input-instructions">
+			<button id="get-json">Find a sentence to mark up for a tree diagram</button>
+			<button id="show-hide-brackets">Hide brackets</button>
+		</div>
+		<div id="start-input"></div>
+		<div id="selector-container" class="selectors">
+			<span id="selector-instructions">Highlight words above and click a button to assign:</span>
+			<div id="selectors-range">
+				<button id="selector-cp" class="selector" value="aCP">CP</button>
+<!-- 				<button id="selector-s" class="selector" value="bS">S</button> or -->
+				<button id="selector-tp" class="selector" value="bTP">TP</button> | 
+				<button id="selector-np" class="selector" value="cNP">NP</button>
+				<button id="selector-vp" class="selector" value="cVP">VP</button> | 
+				<button id="selector-adjp" class="selector" value="dAdjP">AdjP</button>
+				<button id="selector-advp" class="selector" value="dAdvP">AdvP</button>
+				<button id="selector-pp" class="selector" value="dPP">PP</button> | 
+				<button id="selector-adjp" class="selector" value="dInfP">InfP</button>
+				<button id="selector-adjp" class="selector" value="dGerP">GerP</button>
+				<button id="selector-adjp" class="selector" value="dParP">ParP</button>
+			</div>
+			<div id="selectors-word">
+				<button id="selector-c" class="selector" value="eC">C</button>
+				<button id="selector-aux" class="selector" value="eT">T</button> | 
+				<button id="selector-art" class="selector" value="eDet">Det</button>
+				<button id="selector-n" class="selector" value="eN">N</button>
+				<button id="selector-pro" class="selector" value="ePn">Pn</button>
+				<button id="selector-v" class="selector" value="eV">V</button> | 
+				<button id="selector-adj" class="selector" value="eAdj">Adj</button>
+				<button id="selector-adv" class="selector" value="eAdv">Adv</button>
+				<button id="selector-p" class="selector" value="eP">P</button>
+			</div>
+			<button id="save-current-sentence">Save</button>
+		</div>
+		<div id="selectors-sen-typ" class="selectors-sen">
+			<span class="selectors-heading">Current sentence type:</span>
+			<button id="selector-si" class="selectors-sen-typ" value="si">simple</button>
+			<button id="selector-cd" class="selectors-sen-typ" value="cd">compound</button>
+			<button id="selector-cx" class="selectors-sen-typ" value="cx">complex</button>
+			<button id="selector-cc" class="selectors-sen-typ" value="cc">compound-complex</button>
+		</div>
+		<div id="selectors-sen-pat" class="selectors-sen">
+			<span class="selectors-heading">Current sentence pattern(s):</span>
+			<form>
+			<input type="checkbox" class="selectors-sen-pat" value="1" id="sel-sen-pat-one"> 1
+			<input type="checkbox" class="selectors-sen-pat" value="2" id="sel-sen-pat-two"> 2
+			<input type="checkbox" class="selectors-sen-pat" value="3" id="sel-sen-pat-thr"> 3
+			<input type="checkbox" class="selectors-sen-pat" value="4" id="sel-sen-pat-fou"> 4
+			<input type="checkbox" class="selectors-sen-pat" value="5" id="sel-sen-pat-fiv"> 5
+			<input type="checkbox" class="selectors-sen-pat" value="6" id="sel-sen-pat-six"> 6
+			<input type="checkbox" class="selectors-sen-pat" value="7" id="sel-sen-pat-sev"> 7
+			<input type="checkbox" class="selectors-sen-pat" value="8" id="sel-sen-pat-eig"> 8
+			<input type="checkbox" class="selectors-sen-pat" value="9" id="sel-sen-pat-nin"> 9
+			<input type="checkbox" class="selectors-sen-pat" value="10" id="sel-sen-pat-ten"> 10
+			</form>
+		</div>
+		<div id="selector-sen-submit-button" class="selectors-sen">
+			<button class="selector-sen-submit-button" value="submit">Submit Type and Pattern</button>
+		</div>
+		<div id="elements-selected">
+			<div id="element-list-instructions">Current sentence elements (click "[ X ]" to delete):</div>
+			<div id="element-list"></div>
+			<div id="parser-help"></div>
+			<div id="parser-error"></div>
+		</div>
+		<div id="active-sentence-list"></div>
+		<button id="save-json">Download active sentence list</button>
+		<div id="parent-child"></div>
+		<div id="start-output"></div>
+		<footer id="horton">&copy; 2026 Matthew Horton</footer>
+	</div>
+
+<!--	This section is a slightly adapted version of index.html
+		from jssyntaxtree. Remove "tip" div and changed default sentence
+ 		See footer for copyright and github link			-->
+
+	<div id="tree-maker">
+		<div id="options">
+			<div class="option">
+				<input type="checkbox" id="nodecolor" checked="checked" />
+				<label for="nodecolor" title="Colored tree nodes"><span>Color</span></label>
+			</div>
+			<div class="option">
+				<input type="checkbox" id="autosub" checked="checked" />
+				<label for="autosub" title="Automatic subscript"><span>Auto subscript</span></label>
+			</div>
+			<div class="option">
+				<input type="checkbox" id="triangles" />
+				<label for="triangles" title="Enable triangles"><span>Triangles</span></label>
+			</div>
+			<div class="option">
+				<input type="checkbox" id="terminal_lines" checked="checked" />
+				<label for="terminal_lines" title="Show terminal lines"><span>Terminal lines</span></label>
+			</div>
+			<div class="option separator" id="alignment_select">
+				<input type="radio" id="align_top" name="align" value="top">
+				<label for="align_top" title="Align all nodes towards the top"><span>Top aligned<span></label>
+				<input type="radio" id="align_leaves" name="align" value="leaves">
+				<label for="align_leaves" title="Align leaves at the bottom"><span>Align leaves<span></label>
+				<input type="radio" id="align_bottom" name="align" value="bottom" checked="checked">
+				<label for="align_bottom" title="Align all nodes towards the bottom"><span>Bottom aligned<span></label>
+			</div>
+			<div class="option separator">
+				<input type="checkbox" id="highlighting" checked="checked" />
+				<label for="highlighting" title="Highlight brackets in text area"><span>Highlight</span></label>
+			</div>
+			<div class="option separator" id="font_select">
+				<div>
+					<select id="font">
+						<option value="sans-serif" selected="selected">Sans-serif</option>
+						<option value="serif">Serif</option>
+						<option value="monospace">Monospace</option>
+					</select>
+					<select id="fontsize">
+						<option value="12">12</option>
+						<option value="14">14</option>
+						<option value="16" selected="selected">16</option>
+						<option value="18">18</option>
+						<option value="20">20</option>
+						<option value="24">24</option>
+						<option value="36">36</option>
+					</select>
+				</div>
+			</div>
+			<div class="option separator" id="spacing_select">
+				<div><input type="range" id="spacing" min="75" max="150" value="100" title="Aspect ratio" /></div>
+			</div>
+		</div>
+		<div id="input">
+			<h2>Phrase (labelled bracket notation)</h2>
+			<div id="editor">
+				<pre id="highlight"></pre>
+				<textarea rows="5" id="code">[TP [NP [AdjP [Adj Your]] [N sentence]] [T will] [VP [V update] [AdvP [ADV here]] [CP [C as] [TP [NP [Pn you]] [VP [V parse] [NP [Pn it. ->2]]]]]]]</textarea>
+			</div>
+			<span id="parse-error"></span>
+		</div>
+		<div id="tree"><canvas id="canvas" width="100" height="100"></canvas></div>
+		<div id="download">
+			<button id="download_png" title="Download PNG"></button>
+			<button id="download_svg" title="Download SVG"></button>
+		</div>
+		<footer>
+			&copy; 2003-2025 IronCreek Software<br />
+			Idea and linguistic guidance - <b>Mei Eisenbach</b><br />
+			Coding &amp; design - <b>Andr&eacute; Eisenbach</b><br />
+			<a href="https://github.com/int2str/jssyntaxtree">https://github.com/int2str/jssyntaxtree</a>
+			<div id="version">&nbsp;</div>
+		</footer>
+	</div>
+</div>

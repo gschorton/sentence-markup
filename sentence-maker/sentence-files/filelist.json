@@ -1,0 +1,16 @@
+{
+	"files": [
+		{
+			"name": "The Great Gatsby",
+			"path": "tgg.json"
+		},
+		{
+			"name": "The Sun Also Rises",
+			"path": "sar.json"
+		},
+		{
+			"name": "Tree Sentences",
+			"path": "treesentences.json"
+		}
+	]
+}
