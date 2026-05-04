@@ -23,6 +23,20 @@ export function loadSentence() {
 	$("#parser-error").hide();
 	$("#selector-container").show();
 
+	// Update sentence type and pattern selectors when loading a sentence object
+		$(".selectors-sen-typ").removeClass("sen-selected")		
+		if(sentence_object.t.length === 2){
+			$(".selectors-sen-typ[value="+sentence_object.t+"]").addClass("sen-selected");	
+		}
+		
+		$(".selectors-sen-pat").prop("checked", false);	
+		if(sentence_object.p.length > 0){
+			for (let i=0; i<sentence_object.p.length; i++){
+				let pattern_tocheck = sentence_object.p[i].toString();
+				$(".selectors-sen-pat[value="+pattern_tocheck+"]").prop("checked", true);	
+			}
+		}
+	
 	// Add empty span to match data-id attribute of loaded sentence
 	let $id_match = $('<span/>', {
 		"data-id": sentence_object.id

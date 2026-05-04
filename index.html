@@ -14,6 +14,33 @@
 		id "tree-maker" developed by Matthew Horton		-->
 
 <div id="change-element" class="modal change-element-modal"></div>
+<div id="sent-type-pattern" class="modal sent-type-pattern-modal">
+	<div id="selectors-sen-typ" class="selectors-sen">
+	<span class="selectors-heading">Current sentence type:</span>
+	<button id="selector-si" class="selectors-sen-typ" value="si">simple</button>
+	<button id="selector-cd" class="selectors-sen-typ" value="cd">compound</button>
+	<button id="selector-cx" class="selectors-sen-typ" value="cx">complex</button>
+	<button id="selector-cc" class="selectors-sen-typ" value="cc">compound-complex</button>
+</div>
+<div id="selectors-sen-pat" class="selectors-sen">
+	<span class="selectors-heading">Current sentence pattern(s):</span>
+	<form>
+	<input type="checkbox" class="selectors-sen-pat" value="1" id="sel-sen-pat-one"> 1
+	<input type="checkbox" class="selectors-sen-pat" value="2" id="sel-sen-pat-two"> 2
+	<input type="checkbox" class="selectors-sen-pat" value="3" id="sel-sen-pat-thr"> 3
+	<input type="checkbox" class="selectors-sen-pat" value="4" id="sel-sen-pat-fou"> 4
+	<input type="checkbox" class="selectors-sen-pat" value="5" id="sel-sen-pat-fiv"> 5
+	<input type="checkbox" class="selectors-sen-pat" value="6" id="sel-sen-pat-six"> 6
+	<input type="checkbox" class="selectors-sen-pat" value="7" id="sel-sen-pat-sev"> 7
+	<input type="checkbox" class="selectors-sen-pat" value="8" id="sel-sen-pat-eig"> 8
+	<input type="checkbox" class="selectors-sen-pat" value="9" id="sel-sen-pat-nin"> 9
+	<input type="checkbox" class="selectors-sen-pat" value="10" id="sel-sen-pat-ten"> 10
+	</form>
+</div>
+<div id="selector-sen-submit" class="selectors-sen">
+	<button id="selector-sen-submit-button" value="submit">Submit Type and Pattern</button>
+</div>
+</div>
 <div id="find-sentence" class="modal find-sentence-modal">
 	<div id="filters">
 		<form id="filter-options">
@@ -98,7 +125,6 @@
 			<span id="selector-instructions">Highlight words above and click a button to assign:</span>
 			<div id="selectors-range">
 				<button id="selector-cp" class="selector" value="aCP">CP</button>
-<!-- 				<button id="selector-s" class="selector" value="bS">S</button> or -->
 				<button id="selector-tp" class="selector" value="bTP">TP</button> | 
 				<button id="selector-np" class="selector" value="cNP">NP</button>
 				<button id="selector-vp" class="selector" value="cVP">VP</button> | 
@@ -120,32 +146,7 @@
 				<button id="selector-adv" class="selector" value="eAdv">Adv</button>
 				<button id="selector-p" class="selector" value="eP">P</button>
 			</div>
-			<button id="save-current-sentence">Save</button>
-		</div>
-		<div id="selectors-sen-typ" class="selectors-sen">
-			<span class="selectors-heading">Current sentence type:</span>
-			<button id="selector-si" class="selectors-sen-typ" value="si">simple</button>
-			<button id="selector-cd" class="selectors-sen-typ" value="cd">compound</button>
-			<button id="selector-cx" class="selectors-sen-typ" value="cx">complex</button>
-			<button id="selector-cc" class="selectors-sen-typ" value="cc">compound-complex</button>
-		</div>
-		<div id="selectors-sen-pat" class="selectors-sen">
-			<span class="selectors-heading">Current sentence pattern(s):</span>
-			<form>
-			<input type="checkbox" class="selectors-sen-pat" value="1" id="sel-sen-pat-one"> 1
-			<input type="checkbox" class="selectors-sen-pat" value="2" id="sel-sen-pat-two"> 2
-			<input type="checkbox" class="selectors-sen-pat" value="3" id="sel-sen-pat-thr"> 3
-			<input type="checkbox" class="selectors-sen-pat" value="4" id="sel-sen-pat-fou"> 4
-			<input type="checkbox" class="selectors-sen-pat" value="5" id="sel-sen-pat-fiv"> 5
-			<input type="checkbox" class="selectors-sen-pat" value="6" id="sel-sen-pat-six"> 6
-			<input type="checkbox" class="selectors-sen-pat" value="7" id="sel-sen-pat-sev"> 7
-			<input type="checkbox" class="selectors-sen-pat" value="8" id="sel-sen-pat-eig"> 8
-			<input type="checkbox" class="selectors-sen-pat" value="9" id="sel-sen-pat-nin"> 9
-			<input type="checkbox" class="selectors-sen-pat" value="10" id="sel-sen-pat-ten"> 10
-			</form>
-		</div>
-		<div id="selector-sen-submit-button" class="selectors-sen">
-			<button class="selector-sen-submit-button" value="submit">Submit Type and Pattern</button>
+			<button id="save-current-sentence"></button> <button id="assign-sent-features">Assign sentence features</button>
 		</div>
 		<div id="elements-selected">
 			<div id="element-list-instructions">Current sentence elements (click "[ X ]" to delete):</div>
@@ -156,7 +157,6 @@
 		<div id="active-sentence-list"></div>
 		<button id="save-json">Download active sentence list</button>
 		<div id="parent-child"></div>
-		<div id="start-output"></div>
 		<footer id="horton">&copy; 2026 Matthew Horton</footer>
 	</div>
 
