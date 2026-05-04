@@ -4,13 +4,14 @@
 // Function to filter sentence objects
 // This filtering tool includes more filtering options
 // than available in the current app. Leaving intact in
-// of additional feature later on.
+// case of additional features later on.
 
 import $ from './jquery-cdn.js';
-import {sentence_list} from './get-sentence-objects.mjs';
+import {indexed_sentences} from './get-sentence-objects.mjs';
 import {renderList} from './render-list.mjs';
 
 // Function to automate regex for pattern filter options
+// Transforms xxx-yyy-zzz to xxx-yyy-[a-z]-zzz
 export function makePatternClass(item){
 	let test_string_pat1 = item.slice(0,8);
 	let test_string_pat2 = item.slice(7);
@@ -112,6 +113,10 @@ export function filterSentences() {
 	}
  
 	// Functions for conditions to use in filter method
+	// Assigns anonymous functions (lambdas) to variables
+	// Each lambda checks a condition to return boolean
+	// Stored functions grouped in different filter arrays
+	// Called (or not) based on filtering options 
 	let filterBySentenceMarked = (obj) => {
 		return fil_sen_mar_checked.length === 0 || Object.keys(obj.c).length > 0;
 	};
@@ -362,14 +367,11 @@ export function filterSentences() {
 		sentence_filters.push(...allClauseFilters);
 	}
 
-	filtered_sentences = sentence_list
-		.map((obj, index)=> ({
-		...obj,		// Copy existing properties
-		id: index	// Assign index to a new key named "id"
-		}))
-		.filter(( obj ) => sentence_filters.every(filterFn => filterFn(obj)));
+	// Each sentence_object in indexced_sentences passed
+	// to every stored lambda in sentence_filters array
+	filtered_sentences = indexed_sentences
+		.filter(obj => sentence_filters.every(filterFn => filterFn(obj)));
 
-	renderList(filtered_sentences);	// Update list of sentences to review and select
+	// Update list of sentences to review and select
+	renderList(filtered_sentences);
 }
-
-
