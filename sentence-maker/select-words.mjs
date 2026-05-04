@@ -17,7 +17,7 @@ export function selectWords(callback) {
 	let isDragging = false;
 
 	// Makes sentence words clickable to select
-	$('#start-input').on('click', '.selectable', function () {
+	$(document).on('click', '.selectable', function () {
 
 		// Allow "click" in case user dragged to select a range of words
 		if (indicesChanged.length > 1) {

@@ -81,7 +81,7 @@ export function renderList(items) {
 	}
 	
 	// Bind click event for both lists
-	$('.sent-obj').on('click', function() {
+	$(document).on('click', '.sent-obj', function() {
 		$(".loaded").removeClass("loaded");
 		$('[data-id='+$(this).data("id")+']').addClass("loaded");
 		let data = $(this).data("filtered"); // Automatically parses JSON strings into objects

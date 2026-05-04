@@ -57,7 +57,7 @@ export function showActiveSentences (items) {
 
 	// Bind click event for active list
 	// .data() parses JSON strings into objects
-	$('.sent-obj-active').on('click', function() {
+	$(document).on('click', '.sent-obj-active', function() {
 		$(".loaded").removeClass("loaded");
 		$(this).addClass("loaded");
 		let data_id = $(this).data('id');

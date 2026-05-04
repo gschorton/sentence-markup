@@ -38,7 +38,7 @@ export function getJsonFilelist() {
 		//		console.log( "Complete. Did it work?" );
 	});
 
-	$('#file-options').off('change').on('change', function() {
+	$(document).off('change','#file-options').on('change','#file-options', function() {
 		let selected_file = $(this).val();
 		getSentenceObjects(selected_file);
 	});
