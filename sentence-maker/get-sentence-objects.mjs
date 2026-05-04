@@ -2,6 +2,7 @@
 // (c)2026 Matthew Horton (GPL 2.0)
 
 // Function to get existing sentence objects from json file
+// Creates new array of indexed sentences to display
 
 import $ from './jquery-cdn.js';
 import {renderList} from './render-list.mjs';
@@ -20,11 +21,13 @@ export function getSentenceObjects(file){
 
 		// Check for data before mapping and sending to renderList()
 		// Mapping to add unique id key to objects during session
+		// Unique id is "file_name-index" to avoid duplicate ids in session
 		if(sentence_list.length > 0){
+			let file_name = file.split(".")[0];
 			indexed_sentences = sentence_list
 			.map((obj, index)=> ({
-				...obj,					// Copy existing properties
-				id: index				// Assign index to a new key named "id"
+				...obj,
+				id: file_name+"-"+index
 			}));
 			renderList(indexed_sentences);
 		}

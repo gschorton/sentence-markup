@@ -5,8 +5,9 @@
 // Open brackets added to first instance of most frequent classes first
 // Then by lowest word index (0 before 1)
 // Then by general to specific class (NP befort N)
-// Add label for that open bracket
+// Add label for each open bracket
 // Close brackets added to last instance of class in opposite order
+// Add arrow notation, if present, to each close bracket
 // Also tests for crossed bracket sets in case of parser error
 
 import $ from './jquery-cdn.js';
@@ -33,6 +34,7 @@ export function addBrackets(){
 
 			let word_class = Object.keys(sentence_object.c)[i];
 			let indices = Object.values(sentence_object.c)[i];
+			let bracket_end_label = sentence_object.be[i];
 
 			// Adds word class and creates head label based on it
 			// Taking substring of class because class has other
@@ -42,22 +44,25 @@ export function addBrackets(){
 				text: "[" + word_class.split("-")[0].substring(1) + " "
 			});
 
+			// Added ability to add arrow code to end bracket
+			// ->, <-, or <>, followed by column number
+			// If present in sentence object, added to end bracket
+			if(bracket_end_label === undefined){
+				bracket_end_label = "";
+			}else{
+				bracket_end_label = " "+bracket_end_label;
+			}
 			let $close_bracket = $('<span/>', {
 				"class": "bracket bracket-end-" + i + " " + word_class,
-				text: "]"
+				text: bracket_end_label+"]"
 			});
 
 			// Place open and close brackets before and after words
 			// Will drop punctuation before sending to tree maker
+			// Allows for special characters in labels
 			$(".sent-word." + $.escapeSelector(word_class)).first().before($open_bracket);
 			$(".sent-word." + $.escapeSelector(word_class)).last().after($close_bracket);
 
-/* 			if($(".sent-word." + word_class).last().is($(".sent-word").last())){
-				$(".punc").last().after($close_bracket);
-			}else{
-				$(".sent-word." + word_class).last().after($close_bracket);
-			}
- */
 			// Bind each bracket to function for highlighting
 			$(".bracket-start-" + i).hover(bracketWrapper(i));
 			$(".bracket-end-" + i).hover(bracketWrapper(i));

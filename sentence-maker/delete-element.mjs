@@ -18,6 +18,7 @@ export function deleteElement(j) {
 	if (Array.isArray(sentence_object.c[key])) {
 			delete sentence_object.c[key];
 		}
+		delete sentence_object.be[j];
 		restoreSentenceMarkup();
 	};
 }

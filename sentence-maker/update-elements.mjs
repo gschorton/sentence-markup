@@ -19,7 +19,7 @@ export function updateElements () {
 	// Hide element list if no classes exist
 	if(Object.keys(sentence_object.c).length > 0){
 		$("#element-list-instructions").show();
-		$("#parser-help").show().text("* Click on an element to change label.")
+		$("#parser-help").show().text("* Click on an element to add function or node arrow")
 	}else{
 		$("#element-list-instructions").hide();
 		$("#parser-help").hide();
@@ -36,7 +36,6 @@ export function updateElements () {
 
 	// Loop through any classes in sentence_object
 	for (let i=0; i<Object.keys(sentence_object.c).length; i++){
-		let $element_function = "";
 		let element_class = Object.keys(sentence_object.c)[i];
 		
 		let $delete_element = $("<span/>", {
@@ -46,27 +45,24 @@ export function updateElements () {
 				text: "[ X ]"
 		});
 
+		let bracket_end_label = "";
+		if (sentence_object.be[i]) {
+			bracket_end_label = " ("+sentence_object.be[i]+")"
+		}
 		let $element = $('<span/>', {
 				"id": "element-" + i,
 				"class": "element " + element_class,
 				"title": "change this label!",
-				text: element_class.split("-")[0].substring(1)+" --> "+getWordsByClass(element_class)
+				text: element_class.split("-")[0].substring(1) + " --> " + getWordsByClass(element_class) + bracket_end_label
 			});
 		
 		$("#element-list").append($("<span/>", {"class": "element-wrapper", "id": "element-wrapper-"+i}));
 		$("#element-wrapper-"+i).append($delete_element);
 		$("#element-wrapper-"+i).append($element);
-		$("#element-wrapper-"+i).append($element_function);
-		$($delete_element).click(deleteElement(i));
 		$($delete_element).hover(function(){$(this).toggleClass("delete-highlight")});
 		$($element).hover(bracketWrapper(i));
-		$($element_function).hover(bracketWrapper(i));
-		$($element).on('click', function (e){
-			let x = e.pageX;
-			let y = e.pageY;
-			changeElementLabel(i,x,y)
-		});
-		$($element_function).on('click', function (e){
+		$(document).on('click', "#delete-element-"+i, deleteElement(i));
+		$(document).on('click', "#element-"+i, function (e){
 			let x = e.pageX;
 			let y = e.pageY;
 			changeElementLabel(i,x,y)

@@ -21,6 +21,7 @@ export function createSentenceObject(){
 	sentence_object.p = [];
 	sentence_object.w = [];
 	sentence_object.c = {};
+	sentence_object.be = {};
 
 	// empty sentence_words array
 	// // split text from input box into array by space
