@@ -1,8 +1,11 @@
 	/* Framework */
 	body {font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif !important;}
     #wrapper {width: 100%; display: flex; height: 100vh;}
-	#code-generator {width: 600px; min-width: 600px; float: left; margin-left: 10px; margin-right: 30px; height:99vh; display:flex; flex-direction:column; overflow-y: auto;}
-	#tree-maker {display:flex; flex-direction:column; overflow-x: auto}
+	#code-generator {width: 600px; min-width: 600px; float: left; margin-left: 10px; height:99vh; display:flex; flex-direction:column; overflow-y: auto;}
+	#tree-maker {display:flex; flex-direction:column; overflow-x: auto; margin-left: 20px;}
+	#sentence-stager {display:flex; flex-direction:column; overflow-x: auto; max-width: 700px; margin-left: 20px;}
+	#interface-control {margin-top: 10px; margin-right: 20px;}
+	#session-save {display: none; margin-top:10px; margin-right: 20px; }
 
 	/* Buttons */
 	button, .filter-option-reset {display: inline-block; font-family: inherit; font-size: inherit; padding: 3px}
@@ -10,9 +13,20 @@
 	.selector {margin: 2px; padding: 8px; text-align: center; font-size: .9em}
 	#selector-sen-submit-button {float: right;}
 	#show-hide-brackets {display: none; float: right;}
-	#save-current-sentence {margin-top:5px;}
-	#assign-sent-features {float: right; margin-top:5px;}
-	#save-json {display:none; float:right; margin-top: 10px;}
+	#assign-sent-features {float: right;}
+	#save-json {display:none; float:right; margin-top: 10px; margin-right: 20px; }
+	button#prepositional.active, .bracket.phr-pre {color:blue;}
+	button#participle.active, .bracket.phr-par {color:red}
+	button#gerund.active, .bracket.phr-ger {color:forestgreen}
+	button#infinitive.active, .bracket.phr-inf {color:darkorange;}
+	button#adverb.active, .bracket.cla-adv {color:darkviolet}
+	button#adjective.active, .bracket.cla-adj {color:brown}
+	button#noun.active, .bracket.cla-nou {color:darkblue;}
+	.hidden-buttons, .selectors {display: none; margin-top:20px}
+	.bracket-buttons {display: none; margin-top:5px}
+	div.visible {display: block} 
+	button.visible {display: inline-block}
+	.selectors-function {display:none}
 
 	/* Modals */
 	#find-sentence {max-width: none !important; width: 90% !important; height: 100% !important; overflow-y: auto}
@@ -39,53 +53,61 @@
 	#filter-option-submit-feedback.needs-update {color: red;}
 	#filter-option-submit-feedback.loading {color: red}
 	#already-marked {display:inline-block;}
+	.radio-wrapper{display:block}
 	.filters-heading {display:block; font-weight:bold}
 	.filters-heading-space {margin-top: 5px}
-	label.filter-option {all: revert !important;}
+	label.filter-option-label {all: unset}
 	.already-marked {background-color: #87CEEB;}
 	ul#side-menu {list-style-type: none; margin: 0; padding: 0}
 	ul.submenu, ul.submenu1 {list-style-type: none; margin-left: 10px; padding: 5px}
 	button.menu-toggle {display:block; margin: 5px;}
 	.menu-toggle.active {background-color: #87CEEB;}
 	.menu-toggle-top.active {background-color: #87CEEB;}
-
+	.hide-this{visibility: hidden}
 
 	/* Code Generator */
-	#sentence-input-instructions {margin-top: 10px;}
-	#start-input{font-family: monospace; font-size: 1.1rem; margin-left: 10px; margin-top: 30px; margin-bottom: 20px;}
-	#selector-container {display: none; margin-top:10px;}
-	#selector-instructions {display: block;}
+	#current-interface {font-size: 1.3em; margin-left: 15px;}
+	#sentence-input-instructions {margin-top: 10px; margin-right: 20px; }
+	#start-input{font-family: monospace; font-size: 1.1rem; margin-left: 10px; margin-top: 30px; margin-bottom: 20px;  margin-right: 20px; }
+	#sentence-stage{font-family: monospace; font-size: 1.4rem; margin-top: 50px; margin-bottom: 20px;}
+	#selector-container-tree, #selector-container-stage {display: none; margin-top:10px;}
+	#selector-instructions-tree, #selector-instructions-stage {display: block;}
 	#selectors-range, #selectors-word {display: block; margin-top:5px;}
-	#elements-selected {display: block; margin-top:10px; }
-	#element-list-instructions{display:none; font-weight:bold}
-	#parser-help {display:none; margin-top:5px; color: #0c95f0}
-	#parser-error {display:none; margin-top:5px; color: red}
-	#active-sentence-list {display: block; background-color:#E8FFFF; margin-top: 10px}
+	#elements-selected-tree, #elements-selected-stage {display: block; margin-top:10px;  margin-right: 20px; }
+	.element-list-instructions{display:none; font-weight:bold}
+	.parser-help {display:none; margin-top:5px; color: #0c95f0}
+	.parser-error {display:none; margin-top:5px; color: red}
+	#active-sentence-list {display: block; background-color:#E8FFFF; margin-top: 10px; margin-right: 20px; }
 	ul#active-list {all:revert; margin-top: 5px; margin-bottom: 5px;}
 	#horton {margin-top:auto;}
 	.ui-selected { background: #87CEEB;}
-	.sent-word, .space, .punc, .bracket {display: inline-block; margin-bottom: 20px; white-space: pre;}
+	.sent-word, .space, .punc, .bracket {display: inline-block; margin-bottom: 30px; white-space: pre;}
 	.highlighted {background-color: #FFF9C4}
-	.delete-element, .element {cursor: pointer}
+	.delete-element-tree, .element-tree, .delete-element-stage {cursor: pointer}
 	.delete-highlight {background-color: rgba(240, 137, 137, 0.705)}
 	.change-highlight {background-color: #0c95f08e}
-	.element-wrapper {display:block}
+	.element-wrapper-tree, .element-wrapper-stage {display:block}
 	.element-wrapper-child {display:block; margin-left: 15px}
-	span.element {margin-left: 10px}
+	span.element-tree, span.element-stage {margin-left: 10px}
 	.mistake {color: red}
 	.loaded {font-weight: bold}
+	.labels {display: none; font-size: .9em;} 
+	.bracket {display: none; font-size:1.3em; font-weight: bold; line-height:0; margin-bottom: 20px;}
+	.bracket.visible {display: inline-block}
+	.prevent-wrap {display: inline-block; white-space: nowrap;}
 
+	input[type="checkbox"]:checked + label.filter-option-label, input[type="radio"]:checked + label.filter-option-label {background-color: unset;}
+	input[type="radio"].filter-option-radio {display:inline-block}
 	/* Chrome, Safari, Edge, Opera */
 	input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;}
 	/* Firefox */
 	input[type="number"] {-moz-appearance: textfield; appearance: textfield}
 	input[type="checkbox"].filter-option, input[type="checkbox"].selectors-sen-pat {display:inline-block; margin: 2px;}
 	#sen-pun-any, #sen-pun-all, #sen-wor-any, #sen-wor-all, #sen-str-any, #sen-str-all {display:inline-block}
-	.radio-wrapper{display:block}
 	.fil-sen-pun-opt {display:none}
 	.fil-sen-wor-opt {display:none}
 	.fil-sen-str-opt {display:none}
 	.fil-sen-pun-opt.visible {display:inline-block}
 	.fil-sen-wor-opt.visible {display:inline-block}
 	.fil-sen-str-opt.visible {display:inline-block}
-	#file-dropdown{display: inline-block; margin-bottom: 10px}
+	#file-control{display: inline-block; margin-bottom: 10px}

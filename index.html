@@ -1,5 +1,5 @@
 <!doctype html>
-<title>Sentence Markup for Bracket Notation</title>
+<title>Sentence Markup</title>
 <link rel="stylesheet" href="sentence-maker/pagination.css" />
 <link rel="stylesheet" type="text/css" href="tree-maker/default.css" />
 <link rel="stylesheet" type="text/css" href="sentence-maker/default.css" />
@@ -10,11 +10,10 @@
 <script type="module" src="tree-maker/syntaxtree.js"></script>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<!--	All content below, except the <div> with the
-		id "tree-maker" developed by Matthew Horton		-->
+<!--	All content developed by Matthew Horton, except for content loaded into "tree-maker"	-->
 
-<div id="change-element" class="modal change-element-modal"></div>
-<div id="sent-type-pattern" class="modal sent-type-pattern-modal">
+<!--Persistent--><div id="change-element" class="modal change-element-modal"></div>
+<!--Persistent--><div id="sent-type-pattern" class="modal sent-type-pattern-modal">
 	<div id="selectors-sen-typ" class="selectors-sen">
 	<span class="selectors-heading">Current sentence type:</span>
 	<button id="selector-si" class="selectors-sen-typ" value="si">simple</button>
@@ -41,88 +40,273 @@
 	<button id="selector-sen-submit-button" value="submit">Submit Type and Pattern</button>
 </div>
 </div>
-<div id="find-sentence" class="modal find-sentence-modal">
+<!--Persistent--><div id="find-sentence" class="modal find-sentence-modal">
 	<div id="filters">
 		<form id="filter-options">
-			<button id="filter-option-all">Show all</button> <button id="filter-option-available">Show available</button> <input type="reset" class="filter-option-reset" value="Reset"> <button id="filter-option-submit">Submit</button> <span id="filter-option-submit-feedback">Filters updated!</span>
-			<div style="margin-top: 5px"><input type="checkbox" class="filter-option fil-sen-mar" id="already-marked"> <label class="filter-option" for="already-marked">View all marked sentences</label></div>
+			<button id="filter-option-all">Show all</button> <button id="filter-option-available">Show available</button> <input type="reset" class="filter-option-reset" value="Reset"> <button id="filter-option-submit" class="filter-update">Submit</button> <span id="filter-option-submit-feedback">Filters updated!</span>
+			<div style="margin-top: 5px"><input type="checkbox" class="filter-option fil-sen-mar" id="already-marked"> <label class="filter-option-label" for="already-marked">View all marked sentences</label></div>
 			<span class="filters-heading filters-heading-space">Find sentences with certain features:</span>
 			<ul id="side-menu">
 				<button style="display:block; margin-top:10px" class="menu-toggle menu-toggle-top">Sentence type</button>
 				<ul class="submenu" style="display:none;">
-					<input type="checkbox" class="filter-option fil-sen-typ" value="si" id="si"> <label class="filter-option" for="si">simple</label>
-					<input type="checkbox" class="filter-option fil-sen-typ" value="cd" id="cd"> <label class="filter-option" for="cd">compound</label>
-					<input type="checkbox" class="filter-option fil-sen-typ" value="cx" id="cx"> <label class="filter-option" for="cx">complex</label>
-					<input type="checkbox" class="filter-option fil-sen-typ" value="cc" id="cc"> <label class="filter-option" for="cc">compound-complex</label>
+					<input type="checkbox" class="filter-option fil-sen-typ" value="si" id="si"> <label class="filter-option-label" for="si">simple</label>
+					<input type="checkbox" class="filter-option fil-sen-typ" value="cd" id="cd"> <label class="filter-option-label" for="cd">compound</label>
+					<input type="checkbox" class="filter-option fil-sen-typ" value="cx" id="cx"> <label class="filter-option-label" for="cx">complex</label>
+					<input type="checkbox" class="filter-option fil-sen-typ" value="cc" id="cc"> <label class="filter-option-label" for="cc">compound-complex</label>
 				</ul>
 				<button style="display:block" class="menu-toggle menu-toggle-top">Sentence pattern</button>
 				<ul class="submenu" style="display:none;">
-					<input type="checkbox" class="filter-option fil-sen-pat" value="1" id="sen-one"> <label class="filter-option" for="sen-one">1</label>
-					<input type="checkbox" class="filter-option fil-sen-pat" value="2" id="sen-two"> <label class="filter-option" for="sen-two">2</label>
-					<input type="checkbox" class="filter-option fil-sen-pat" value="3" id="sen-thr"> <label class="filter-option" for="sen-thr">3</label>
-					<input type="checkbox" class="filter-option fil-sen-pat" value="4" id="sen-fou"> <label class="filter-option" for="sen-fou">4</label>
-					<input type="checkbox" class="filter-option fil-sen-pat" value="5" id="sen-fiv"> <label class="filter-option" for="sen-fiv">5</label>
-					<input type="checkbox" class="filter-option fil-sen-pat" value="6" id="sen-six"> <label class="filter-option" for="sen-six">6</label>
-					<input type="checkbox" class="filter-option fil-sen-pat" value="7" id="sen-sev"> <label class="filter-option" for="sen-sev">7</label>
-					<input type="checkbox" class="filter-option fil-sen-pat" value="8" id="sen-eig"> <label class="filter-option" for="sen-eig">8</label>
-					<input type="checkbox" class="filter-option fil-sen-pat" value="9" id="sen-nin"> <label class="filter-option" for="sen-nin">9</label>
-					<input type="checkbox" class="filter-option fil-sen-pat" value="10" id="sen-ten"> <label class="filter-option" for="sen-ten">10</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="1" id="sen-one"> <label class="filter-option-label" for="sen-one">1</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="2" id="sen-two"> <label class="filter-option-label" for="sen-two">2</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="3" id="sen-thr"> <label class="filter-option-label" for="sen-thr">3</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="4" id="sen-fou"> <label class="filter-option-label" for="sen-fou">4</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="5" id="sen-fiv"> <label class="filter-option-label" for="sen-fiv">5</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="6" id="sen-six"> <label class="filter-option-label" for="sen-six">6</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="7" id="sen-sev"> <label class="filter-option-label" for="sen-sev">7</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="8" id="sen-eig"> <label class="filter-option-label" for="sen-eig">8</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="9" id="sen-nin"> <label class="filter-option-label" for="sen-nin">9</label>
+					<input type="checkbox" class="filter-option fil-sen-pat" value="10" id="sen-ten"> <label class="filter-option-label" for="sen-ten">10</label>
 				</ul>
 				<button style="display:block" class="menu-toggle menu-toggle-top">Sentence length</button>
 				<ul class="submenu" style="display:none;">
 					Min: <input type="number" class="filter-option fil-sen-len-min" value="1" style="width: 50px" id="sen-len-min">
 					Max: <input type="number" class="filter-option fil-sen-len-min" value="100" style="width: 50px" id="sen-len-max">
-					<button id="button-len">update</button>
+					<button id="button-len" class="filter-update">update</button>
 				</ul>
 				<span id="error-len"></span>
 				<span class="radio-wrapper">
 				<button style="display:inline-block" class="menu-toggle menu-toggle-top">Search by punctuation</button>
-				<span class = "fil-sen-pun-opt"><input type="radio" name="fil-sen-pun-opt" value="sen-pun-any" id="sen-pun-any" checked /> any <input type="radio" name="fil-sen-pun-opt" value="sen-pun-all" id="sen-pun-all" /> all</span>
+				<span class = "fil-sen-pun-opt"><input type="radio" class="filter-option-radio" name="fil-sen-pun-opt" value="sen-pun-any" id="sen-pun-any" checked /> any <input type="radio" name="fil-sen-pun-opt" value="sen-pun-all" id="sen-pun-all" /> all</span>
 				</span>
 				<ul class="submenu" style="display:none;">
 					<input type="text" value="" placeholder="separate punctuation marks with spaces" class="filter-option fil-sen-pun-inp" id="sen-pun-inp" style="width: 300px">
-							<button id="button-pun">find</button>
+							<button id="button-pun" class="filter-update">find</button>
 				</ul>
 				<span class="radio-wrapper">
 				<button style="display:inline-block" class="menu-toggle menu-toggle-top">Search by exact words</button>
-				<span class = "fil-sen-wor-opt"><input type="radio" name="fil-sen-wor-opt" value="sen-wor-any" id="sen-wor-any" checked /> any <input type="radio" name="fil-sen-wor-opt" value="sen-wor-all" id="sen-wor-all" /> all</span>
+				<span class = "fil-sen-wor-opt"><input type="radio" class="filter-option-radio" name="fil-sen-wor-opt" value="sen-wor-any" id="sen-wor-any" checked /> any <input type="radio" name="fil-sen-wor-opt" value="sen-wor-all" id="sen-wor-all" /> all</span>
 				</span>
 				<ul class="submenu" style="display:none;">
 					<input type="text" value="" placeholder="separate words with spaces" class="filter-option fil-sen-wor-inp" id="sen-wor-inp" style="width: 300px">
-							<button id="button-wor">find</button>
+							<button id="button-wor" class="filter-update">find</button>
 				</ul>
 				<span class="radio-wrapper">
 				<button style="display:inline-block" class="menu-toggle menu-toggle-top">Search by partial strings</button>
-				<span class = "fil-sen-str-opt"><input type="radio" name="fil-sen-str-opt" value="sen-str-any" id="sen-str-any" checked /> any <input type="radio" name="fil-sen-str-opt" value="sen-str-all" id="sen-str-all" /> all</span>
+				<span class = "fil-sen-str-opt"><input type="radio" class="filter-option-radio" name="fil-sen-str-opt" value="sen-str-any" id="sen-str-any" checked /> any <input type="radio" name="fil-sen-str-opt" value="sen-str-all" id="sen-str-all" /> all</span>
 				</span>
 				<ul class="submenu" style="display:none;">
 					<input type="text" value="" placeholder="separate strings with spaces" class="filter-option fil-sen-str-inp" id="sen-str-inp" style="width: 300px">
-							<button id="button-str">find</button>
+							<button id="button-str" class="filter-update">find</button>
 				</ul>
+					<span class="radio-wrapper">
+		<button style="display:inline-block" class="menu-toggle menu-toggle-top">Search by parts of speech</button>
+		<span class = "fil-wor-opt"><input type="radio" class="filter-option-radio" name="fil-wor-opt" value="wor-any" id="wor-any" checked /> any <input type="radio" name="fil-wor-opt" value="wor-all" id="wor-all" /> all</span>
+	</span>
+	<ul class="submenu" style="display:none;">
+		<button style="display:block" class="menu-toggle filter-option fil-wor-nou">Noun</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-wor-nou" value="wor-nou-sub" id="wor-nou-sub"> <label class="filter-option-label" for="wor-nou-sub">S</label>
+			<input type="checkbox" class="filter-option fil-wor-nou" value="wor-nou-pno" id="wor-nou-pno"> <label class="filter-option-label" for="wor-nou-pno">PN</label>
+			<input type="checkbox" class="filter-option fil-wor-nou" value="wor-nou-dob" id="wor-nou-dob"> <label class="filter-option-label" for="wor-nou-dob">DO</label>
+			<input type="checkbox" class="filter-option fil-wor-nou" value="wor-nou-iob" id="wor-nou-iob"> <label class="filter-option-label" for="wor-nou-iob">IO</label>
+			<input type="checkbox" class="filter-option fil-wor-nou" value="wor-nou-ocn" id="wor-nou-ocn"> <label class="filter-option-label" for="wor-nou-ocn">OCN</label>
+			<input type="checkbox" class="filter-option fil-wor-nou" value="wor-nou-obp" id="wor-nou-obp"> <label class="filter-option-label" for="wor-nou-obp">OP</label>
+		</ul>
+		<button style="display:block" class="menu-toggle filter-option fil-wor-pro">Pronoun</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-wor-pro" value="wor-pro-sub" id="wor-pro-sub"> <label class="filter-option-label" for="wor-pro-sub">S</label>
+			<input type="checkbox" class="filter-option fil-wor-pro" value="wor-pro-pno" id="wor-pro-pno"> <label class="filter-option-label" for="wor-pro-pno">PN</label>
+			<input type="checkbox" class="filter-option fil-wor-pro" value="wor-pro-dob" id="wor-pro-dob"> <label class="filter-option-label" for="wor-pro-dob">DO</label>
+			<input type="checkbox" class="filter-option fil-wor-pro" value="wor-pro-iob" id="wor-pro-iob"> <label class="filter-option-label" for="wor-pro-iob">IO</label>
+			<input type="checkbox" class="filter-option fil-wor-pro" value="wor-pro-ocn" id="wor-pro-ocn"> <label class="filter-option-label" for="wor-pro-ocn">OCN</label>
+			<input type="checkbox" class="filter-option fil-wor-pro" value="wor-pro-obp" id="wor-pro-obp"> <label class="filter-option-label" for="wor-pro-obp">OP</label>
+		</ul>
+		<button style="display:block" class="menu-toggle filter-option fil-wor-ver">Verb</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-wor-ver" value="wor-ver-bvb" id="wor-ver-bvb"> <label class="filter-option-label" for="wor-ver-bvb">"to be"</label>
+			<input type="checkbox" class="filter-option fil-wor-ver" value="wor-ver-lvb" id="wor-ver-lvb"> <label class="filter-option-label" for="wor-ver-lvb">LV</label>
+			<input type="checkbox" class="filter-option fil-wor-ver" value="wor-ver-ivb" id="wor-ver-ivb"> <label class="filter-option-label" for="wor-ver-ivb">IV</label>
+			<input type="checkbox" class="filter-option fil-wor-ver" value="wor-ver-tvb" id="wor-ver-tvb"> <label class="filter-option-label" for="wor-ver-tvb">TV</label>
+		</ul>
+		<button style="display:block" class="menu-toggle filter-option fil-wor-adj">Adjective</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-wor-adj" value="wor-adj-maj" id="wor-adj-maj"> <label class="filter-option-label" for="wor-adj-maj">Mod</label>
+			<input type="checkbox" class="filter-option fil-wor-adj" value="wor-adj-pad" id="wor-adj-pad"> <label class="filter-option-label" for="wor-adj-pad">PA</label>
+			<input type="checkbox" class="filter-option fil-wor-adj" value="wor-adj-oca" id="wor-adj-oca"> <label class="filter-option-label" for="wor-adj-oca">OCA</label>	
+		</ul>
+		<button style="display:block" class="menu-toggle filter-option fil-wor-adv">Adverb</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-wor-adv" value="wor-adv-mav" id="wor-adv-mav"> <label class="filter-option-label" for="wor-adv-mav">Mod</label>
+			<input type="checkbox" class="filter-option fil-wor-adv" value="wor-adv-avt" id="wor-adv-avt"> <label class="filter-option-label" for="wor-adv-avt">AdvT</label>
+			<input type="checkbox" class="filter-option fil-wor-adv" value="wor-adv-avp" id="wor-adv-avp"> <label class="filter-option-label" for="wor-adv-avp">AdvT</label>
+		</ul>
+	</ul>
+	<span class="radio-wrapper">
+		<button style="display:inline-block" class="menu-toggle menu-toggle-top">Search by phrases</button>
+		<span class = "fil-phr-opt"><input type="radio" class="filter-option-radio" name="fil-phr-opt" value="phr-any" id="phr-any" checked /> any <input type="radio" name="fil-phr-opt" value="phr-all" id="phr-all" /> all</span>
+	</span>
+	<ul class="submenu" style="display:none;">
+		<button style="display:block" class="menu-toggle filter-option fil-phr-pre">Prepositional</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-phr-pre" value="phr-pre-maj" id="phr-pre-maj"> <label class="filter-option-label" for="phr-pre-maj">M-Adj</label>
+			<input type="checkbox" class="filter-option fil-phr-pre" value="phr-pre-mav" id="phr-pre-mav"> <label class="filter-option-label" for="phr-pre-mav">M-Adv</label>
+			<input type="checkbox" class="filter-option fil-phr-pre" value="phr-pre-pad" id="phr-pre-pad"> <label class="filter-option-label" for="phr-pre-pad">PA</label>
+			<input type="checkbox" class="filter-option fil-phr-pre" value="phr-pre-oca" id="phr-pre-oca"> <label class="filter-option-label" for="phr-pre-oca">OCA</label>	
+			<input type="checkbox" class="filter-option fil-phr-pre" value="phr-pre-avt" id="phr-pre-avt"> <label class="filter-option-label" for="phr-pre-avt">AdvT</label>
+			<input type="checkbox" class="filter-option fil-phr-pre" value="phr-pre-avp" id="phr-pre-avp"> <label class="filter-option-label" for="phr-pre-avp">AdvP</label>
+		</ul>
+		<button style="display:block" class="menu-toggle filter-option fil-phr-par">Participle</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-phr-par" value="phr-par-maj" id="phr-par-maj"> <label class="filter-option-label" for="phr-par-maj">Mod</label>
+			<input type="checkbox" class="filter-option fil-phr-par" value="phr-par-pad" id="phr-par-pad"> <label class="filter-option-label" for="phr-par-pad">PA</label>
+			<input type="checkbox" class="filter-option fil-phr-par" value="phr-par-oca" id="phr-par-oca"> <label class="filter-option-label" for="phr-par-oca">OCA</label>
+			<span class="filters-heading filters-heading-space">Patterns:</span>
+			<input type="checkbox" class="filter-option fil-phr-par-pat" value="phr-par-one" id="phr-par-one"> <label class="filter-option-label" for="phr-par-one">1</label>
+			<input type="checkbox" class="filter-option fil-phr-par-pat" value="phr-par-two" id="phr-par-two"> <label class="filter-option-label" for="phr-par-two">2</label>
+			<input type="checkbox" class="filter-option fil-phr-par-pat" value="phr-par-thr" id="phr-par-thr"> <label class="filter-option-label" for="phr-par-thr">3</label>
+			<input type="checkbox" class="filter-option fil-phr-par-pat" value="phr-par-fou" id="phr-par-fou"> <label class="filter-option-label" for="phr-par-fou">4</label>
+			<input type="checkbox" class="filter-option fil-phr-par-pat" value="phr-par-fiv" id="phr-par-fiv"> <label class="filter-option-label" for="phr-par-fiv">5</label>
+			<input type="checkbox" class="filter-option fil-phr-par-pat" value="phr-par-six" id="phr-par-six"> <label class="filter-option-label" for="phr-par-six">6</label>
+			<input type="checkbox" class="filter-option fil-phr-par-pat" value="phr-par-sev" id="phr-par-sev"> <label class="filter-option-label" for="phr-par-sev">7</label>
+			<input type="checkbox" class="filter-option fil-phr-par-pat" value="phr-par-eig" id="phr-par-eig"> <label class="filter-option-label" for="phr-par-eig">8</label>
+			<input type="checkbox" class="filter-option fil-phr-par-pat" value="phr-par-nin" id="phr-par-nin"> <label class="filter-option-label" for="phr-par-nin">9</label>
+			<input type="checkbox" class="filter-option fil-phr-par-pat" value="phr-par-ten" id="phr-par-ten"> <label class="filter-option-label" for="phr-par-ten">10</label>
+		</ul>
+		<button style="display:block" class="menu-toggle filter-option fil-phr-ger">Gerund</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-phr-ger" value="phr-ger-sub" id="phr-ger-sub"> <label class="filter-option-label" for="phr-ger-sub">S</label>
+			<input type="checkbox" class="filter-option fil-phr-ger" value="phr-ger-pno" id="phr-ger-pno"> <label class="filter-option-label" for="phr-ger-pno">PN</label>
+			<input type="checkbox" class="filter-option fil-phr-ger" value="phr-ger-dob" id="phr-ger-dob"> <label class="filter-option-label" for="phr-ger-dob">DO</label>
+			<input type="checkbox" class="filter-option fil-phr-ger" value="phr-ger-iob" id="phr-ger-iob"> <label class="filter-option-label" for="phr-ger-iob">IO</label>
+			<input type="checkbox" class="filter-option fil-phr-ger" value="phr-ger-ocn" id="phr-ger-ocn"> <label class="filter-option-label" for="phr-ger-ocn">OCN</label>
+			<input type="checkbox" class="filter-option fil-phr-ger" value="phr-ger-obp" id="phr-ger-obp"> <label class="filter-option-label" for="phr-ger-obp">OP</label>
+			<span class="filters-heading filters-heading-space">Patterns:</span>
+			<input type="checkbox" class="filter-option fil-phr-ger-pat" value="phr-ger-one" id="phr-ger-one"> <label class="filter-option-label" for="phr-ger-one">1</label>
+			<input type="checkbox" class="filter-option fil-phr-ger-pat" value="phr-ger-two" id="phr-ger-two"> <label class="filter-option-label" for="phr-ger-two">2</label>
+			<input type="checkbox" class="filter-option fil-phr-ger-pat" value="phr-ger-thr" id="phr-ger-thr"> <label class="filter-option-label" for="phr-ger-thr">3</label>
+			<input type="checkbox" class="filter-option fil-phr-ger-pat" value="phr-ger-fou" id="phr-ger-fou"> <label class="filter-option-label" for="phr-ger-fou">4</label>
+			<input type="checkbox" class="filter-option fil-phr-ger-pat" value="phr-ger-fiv" id="phr-ger-fiv"> <label class="filter-option-label" for="phr-ger-fiv">5</label>
+			<input type="checkbox" class="filter-option fil-phr-ger-pat" value="phr-ger-six" id="phr-ger-six"> <label class="filter-option-label" for="phr-ger-six">6</label>
+			<input type="checkbox" class="filter-option fil-phr-ger-pat" value="phr-ger-sev" id="phr-ger-sev"> <label class="filter-option-label" for="phr-ger-sev">7</label>
+			<input type="checkbox" class="filter-option fil-phr-ger-pat" value="phr-ger-eig" id="phr-ger-eig"> <label class="filter-option-label" for="phr-ger-eig">8</label>
+			<input type="checkbox" class="filter-option fil-phr-ger-pat" value="phr-ger-nin" id="phr-ger-nin"> <label class="filter-option-label" for="phr-ger-nin">9</label>
+			<input type="checkbox" class="filter-option fil-phr-ger-pat" value="phr-ger-ten" id="phr-ger-ten"> <label class="filter-option-label" for="phr-ger-ten">10</label>
+		</ul>
+		<button style="display:block" class="menu-toggle filter-option fil-phr-inf">Infinitive</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-phr-inf" value="phr-inf-sub" id="phr-inf-sub"> <label class="filter-option-label" for="phr-inf-sub">S</label>
+			<input type="checkbox" class="filter-option fil-phr-inf" value="phr-inf-pno" id="phr-inf-pno"> <label class="filter-option-label" for="phr-inf-pno">PN</label>
+			<input type="checkbox" class="filter-option fil-phr-inf" value="phr-inf-dob" id="phr-inf-dob"> <label class="filter-option-label" for="phr-inf-dob">DO</label>
+			<input type="checkbox" class="filter-option fil-phr-inf" value="phr-inf-ocn" id="phr-inf-ocn"> <label class="filter-option-label" for="phr-inf-ocn">OCN</label>
+			<input type="checkbox" class="filter-option fil-phr-inf" value="phr-inf-maj" id="phr-inf-maj"> <label class="filter-option-label" for="phr-inf-maj">M-Adj</label>
+			<input type="checkbox" class="filter-option fil-phr-inf" value="phr-inf-mav" id="phr-inf-mav"> <label class="filter-option-label" for="phr-inf-mav">M-Adv</label>
+			<input type="checkbox" class="filter-option fil-phr-inf" value="phr-inf-pad" id="phr-inf-pad"> <label class="filter-option-label" for="phr-inf-pad">PA</label>
+			<input type="checkbox" class="filter-option fil-phr-inf" value="phr-inf-oca" id="phr-inf-oca"> <label class="filter-option-label" for="phr-inf-oca">OCA</label>
+			<span class="filters-heading filters-heading-space">Patterns:</span>
+			<input type="checkbox" class="filter-option fil-phr-inf-pat" value="phr-inf-one" id="phr-inf-one"> <label class="filter-option-label" for="phr-inf-one">1</label>
+			<input type="checkbox" class="filter-option fil-phr-inf-pat" value="phr-inf-two" id="phr-inf-two"> <label class="filter-option-label" for="phr-inf-two">2</label>
+			<input type="checkbox" class="filter-option fil-phr-inf-pat" value="phr-inf-thr" id="phr-inf-thr"> <label class="filter-option-label" for="phr-inf-thr">3</label>
+			<input type="checkbox" class="filter-option fil-phr-inf-pat" value="phr-inf-fou" id="phr-inf-fou"> <label class="filter-option-label" for="phr-inf-fou">4</label>
+			<input type="checkbox" class="filter-option fil-phr-inf-pat" value="phr-inf-fiv" id="phr-inf-fiv"> <label class="filter-option-label" for="phr-inf-fiv">5</label>
+			<input type="checkbox" class="filter-option fil-phr-inf-pat" value="phr-inf-six" id="phr-inf-six"> <label class="filter-option-label" for="phr-inf-six">6</label>
+			<input type="checkbox" class="filter-option fil-phr-inf-pat" value="phr-inf-sev" id="phr-inf-sev"> <label class="filter-option-label" for="phr-inf-sev">7</label>
+			<input type="checkbox" class="filter-option fil-phr-inf-pat" value="phr-inf-eig" id="phr-inf-eig"> <label class="filter-option-label" for="phr-inf-eig">8</label>
+			<input type="checkbox" class="filter-option fil-phr-inf-pat" value="phr-inf-nin" id="phr-inf-nin"> <label class="filter-option-label" for="phr-inf-nin">9</label>
+			<input type="checkbox" class="filter-option fil-phr-inf-pat" value="phr-inf-ten" id="phr-inf-ten"> <label class="filter-option-label" for="phr-inf-ten">10</label>
+		</ul>
+	</ul>
+	<span class="radio-wrapper">
+		<button style="display:inline-block" class="menu-toggle menu-toggle-top">Search by clauses</button>
+		<span class = "fil-cla-opt"><input type="radio" class="filter-option-radio" name="fil-cla-opt" value="cla-any" id="cla-any" checked /> any <input type="radio" name="fil-cla-opt" value="cla-all" id="cla-all" /> all</span>
+	</span>
+	<ul class="submenu" style="display:none;">
+		<button style="display:block" class="menu-toggle filter-option fil-cla-nou">Noun</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-cla-nou" value="cla-nou-sub" id="cla-nou-sub"> <label class="filter-option-label" for="cla-nou-sub">S</label>
+			<input type="checkbox" class="filter-option fil-cla-nou" value="cla-nou-pno" id="cla-nou-pno"> <label class="filter-option-label" for="cla-nou-pno">PN</label>
+			<input type="checkbox" class="filter-option fil-cla-nou" value="cla-nou-dob" id="cla-nou-dob"> <label class="filter-option-label" for="cla-nou-dob">DO</label>
+			<input type="checkbox" class="filter-option fil-cla-nou" value="cla-nou-iob" id="cla-nou-iob"> <label class="filter-option-label" for="cla-nou-iob">IO</label>
+			<input type="checkbox" class="filter-option fil-cla-nou" value="cla-nou-ocn" id="cla-nou-ocn"> <label class="filter-option-label" for="cla-nou-ocn">OCN</label>
+			<input type="checkbox" class="filter-option fil-cla-nou" value="cla-nou-obp" id="cla-nou-obp"> <label class="filter-option-label" for="cla-nou-obp">OP</label>
+			<span class="filters-heading filters-heading-space">Patterns:</span>
+			<input type="checkbox" class="filter-option fil-cla-nou-pat" value="cla-nou-one" id="cla-nou-one"> <label class="filter-option-label" for="cla-nou-one">1</label>
+			<input type="checkbox" class="filter-option fil-cla-nou-pat" value="cla-nou-two" id="cla-nou-two"> <label class="filter-option-label" for="cla-nou-two">2</label>
+			<input type="checkbox" class="filter-option fil-cla-nou-pat" value="cla-nou-thr" id="cla-nou-thr"> <label class="filter-option-label" for="cla-nou-thr">3</label>
+			<input type="checkbox" class="filter-option fil-cla-nou-pat" value="cla-nou-fou" id="cla-nou-fou"> <label class="filter-option-label" for="cla-nou-fou">4</label>
+			<input type="checkbox" class="filter-option fil-cla-nou-pat" value="cla-nou-fiv" id="cla-nou-fiv"> <label class="filter-option-label" for="cla-nou-fiv">5</label>
+			<input type="checkbox" class="filter-option fil-cla-nou-pat" value="cla-nou-six" id="cla-nou-six"> <label class="filter-option-label" for="cla-nou-six">6</label>
+			<input type="checkbox" class="filter-option fil-cla-nou-pat" value="cla-nou-sev" id="cla-nou-sev"> <label class="filter-option-label" for="cla-nou-sev">7</label>
+			<input type="checkbox" class="filter-option fil-cla-nou-pat" value="cla-nou-eig" id="cla-nou-eig"> <label class="filter-option-label" for="cla-nou-eig">8</label>
+			<input type="checkbox" class="filter-option fil-cla-nou-pat" value="cla-nou-nin" id="cla-nou-nin"> <label class="filter-option-label" for="cla-nou-nin">9</label>
+			<input type="checkbox" class="filter-option fil-cla-nou-pat" value="cla-nou-ten" id="cla-nou-ten"> <label class="filter-option-label" for="cla-nou-ten">10</label>
+		</ul>
+		<button style="display:block" class="menu-toggle filter-option fil-cla-adv">Adverb</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-cla-adv" value="cla-adv-mav" id="cla-adv-mav"> <label class="filter-option-label" for="cla-adv-mav">Mod</label>
+			<input type="checkbox" class="filter-option fil-cla-adv" value="cla-adv-avt" id="cla-adv-avt"> <label class="filter-option-label" for="cla-adv-avt">AdvT</label>
+			<input type="checkbox" class="filter-option fil-cla-adv" value="cla-adv-avp" id="cla-adv-avp"> <label class="filter-option-label" for="cla-adv-avp">AdvT</label>
+			<span class="filters-heading">Patterns:</span>
+			<input type="checkbox" class="filter-option fil-cla-adv-pat" value="cla-adv-one" id="cla-adv-one"> <label class="filter-option-label" for="cla-adv-one">1</label>
+			<input type="checkbox" class="filter-option fil-cla-adv-pat" value="cla-adv-two" id="cla-adv-two"> <label class="filter-option-label" for="cla-adv-two">2</label>
+			<input type="checkbox" class="filter-option fil-cla-adv-pat" value="cla-adv-thr" id="cla-adv-thr"> <label class="filter-option-label" for="cla-adv-thr">3</label>
+			<input type="checkbox" class="filter-option fil-cla-adv-pat" value="cla-adv-fou" id="cla-adv-fou"> <label class="filter-option-label" for="cla-adv-fou">4</label>
+			<input type="checkbox" class="filter-option fil-cla-adv-pat" value="cla-adv-fiv" id="cla-adv-fiv"> <label class="filter-option-label" for="cla-adv-fiv">5</label>
+			<input type="checkbox" class="filter-option fil-cla-adv-pat" value="cla-adv-six" id="cla-adv-six"> <label class="filter-option-label" for="cla-adv-six">6</label>
+			<input type="checkbox" class="filter-option fil-cla-adv-pat" value="cla-adv-sev" id="cla-adv-sev"> <label class="filter-option-label" for="cla-adv-sev">7</label>
+			<input type="checkbox" class="filter-option fil-cla-adv-pat" value="cla-adv-eig" id="cla-adv-eig"> <label class="filter-option-label" for="cla-adv-eig">8</label>
+			<input type="checkbox" class="filter-option fil-cla-adv-pat" value="cla-adv-nin" id="cla-adv-nin"> <label class="filter-option-label" for="cla-adv-nin">9</label>
+			<input type="checkbox" class="filter-option fil-cla-adv-pat" value="cla-adv-ten" id="cla-adv-ten"> <label class="filter-option-label" for="cla-adv-ten">10</label>
+		</ul>
+		<button style="display:block" class="menu-toggle filter-option fil-cla-adj">Adjective</button>
+		<ul class="submenu1" style="display:none;">
+			<span class="filters-heading">Functions:</span>
+			<input type="checkbox" class="filter-option fil-cla-adj" value="cla-adj-maj" id="cla-adj-maj"> <label class="filter-option-label" for="cla-adj-maj">Mod</label>
+			<span class="filters-heading">Patterns:</span>
+			<input type="checkbox" class="filter-option fil-cla-adj-pat" value="cla-adj-one" id="cla-adj-one"> <label class="filter-option-label" for="cla-adj-one">1</label>
+			<input type="checkbox" class="filter-option fil-cla-adj-pat" value="cla-adj-two" id="cla-adj-two"> <label class="filter-option-label" for="cla-adj-two">2</label>
+			<input type="checkbox" class="filter-option fil-cla-adj-pat" value="cla-adj-thr" id="cla-adj-thr"> <label class="filter-option-label" for="cla-adj-thr">3</label>
+			<input type="checkbox" class="filter-option fil-cla-adj-pat" value="cla-adj-fou" id="cla-adj-fou"> <label class="filter-option-label" for="cla-adj-fou">4</label>
+			<input type="checkbox" class="filter-option fil-cla-adj-pat" value="cla-adj-fiv" id="cla-adj-fiv"> <label class="filter-option-label" for="cla-adj-fiv">5</label>
+			<input type="checkbox" class="filter-option fil-cla-adj-pat" value="cla-adj-six" id="cla-adj-six"> <label class="filter-option-label" for="cla-adj-six">6</label>
+			<input type="checkbox" class="filter-option fil-cla-adj-pat" value="cla-adj-sev" id="cla-adj-sev"> <label class="filter-option-label" for="cla-adj-sev">7</label>
+			<input type="checkbox" class="filter-option fil-cla-adj-pat" value="cla-adj-eig" id="cla-adj-eig"> <label class="filter-option-label" for="cla-adj-eig">8</label>
+			<input type="checkbox" class="filter-option fil-cla-adj-pat" value="cla-adj-nin" id="cla-adj-nin"> <label class="filter-option-label" for="cla-adj-nin">9</label>
+			<input type="checkbox" class="filter-option fil-cla-adj-pat" value="cla-adj-ten" id="cla-adj-ten"> <label class="filter-option-label" for="cla-adj-ten">10</label>
+		</ul>
+	</ul>
 			</ul>
 		</form>
-		<div id="sentence-input-options">
-			<span>Choose a file from the list:</span>
-			<div id="file-dropdown"><select id="file-options"></select></div>
-			<span style="display:block">Or type in a sentence of your own:</span>
-			<textarea id="sentence-input-text" rows="5" cols="50">Michael forgot for whom Tracy had to put up the book.</textarea>
-			<div id="sentence-input-buttons">
-				<button id="load-button">Load</button>
-			</div>
+	</div>
+	<div id="sentence-input-options">
+		<span>Choose a file from the list:</span>
+		<div id="file-control"><select id="file-options"></select></div>
+		<span style="display:block">Or type in a sentence of your own:</span>
+		<textarea id="sentence-input-text" rows="5"
+			cols="50">Michael forgot for whom Tracy had to put up the book.</textarea>
+		<div id="sentence-input-buttons">
+			<button id="load-button">Load</button>
 		</div>
 	</div>
 	<div id="filter-results"></div>
 </div>
-
 <div id="wrapper">
 	<div id="code-generator">
-		<div id="sentence-input-instructions">
-			<button id="get-json">Find a sentence to mark up for a tree diagram</button>
-			<button id="show-hide-brackets">Hide brackets</button>
-		</div>
-		<div id="start-input"></div>
-		<div id="selector-container" class="selectors">
-			<span id="selector-instructions">Highlight words above and click a button to assign:</span>
+<!--Persistent-->		<div id="interface-control"><select id="interface-options"></select><span id="current-interface"></span></div>
+<!--Persistent-->		<div id="sentence-input-instructions"><button id="get-json">Find a sentence to mark up for a tree diagram</button><button id="show-hide-brackets">Hide brackets</button></div>
+<!--Persistent-->		<div id="start-input"></div>
+<!--Alternate-->		<div id="selector-container-tree" class="selectors">
+			<span id="selector-instructions-tree">Highlight words above and click a button to assign:</span>
 			<div id="selectors-range">
 				<button id="selector-cp" class="selector" value="aCP">CP</button>
 				<button id="selector-tp" class="selector" value="bTP">TP</button> | 
@@ -146,25 +330,120 @@
 				<button id="selector-adv" class="selector" value="eAdv">Adv</button>
 				<button id="selector-p" class="selector" value="eP">P</button>
 			</div>
-			<button id="save-current-sentence"></button> <button id="assign-sent-features">Assign sentence features</button>
-		</div>
-		<div id="elements-selected">
-			<div id="element-list-instructions">Current sentence elements (click "[ X ]" to delete):</div>
-			<div id="element-list"></div>
-			<div id="parser-help"></div>
-			<div id="parser-error"></div>
-		</div>
-		<div id="active-sentence-list"></div>
-		<button id="save-json">Download active sentence list</button>
-		<div id="parent-child"></div>
-		<footer id="horton">&copy; 2026 Matthew Horton</footer>
+		</div> <!--close "selector-container-tree"-->
+<!--Alternate-->		<div id="selector-container-stage" class="selectors">
+			<span id="selector-instructions-stage">Highlight words above to reveal selectors</span>
+			<div id="selectors-category" class="selectors">Category: 
+				<button id="selector-wor" class="selectors-category" value="wor">word</button>
+				<button id="selector-phr" class="selectors-category" value="phr">phrase</button>
+				<button id="selector-cla" class="selectors-category" value="cla">clause</button>
+			</div>
+
+			<div id="selectors-word-type" class="selectors">Part of Speech: 
+				<button id="selector-wor-nou" class="nou-function selectors-word-type" value="nou">noun</button>
+				<button id="selector-wor-pro" class="pro-function selectors-word-type" value="pro">pronoun</button>
+				<button id="selector-wor-ver" class="ver-function selectors-word-type" value="ver">verb</button>
+				<button id="selector-wor-adj" class="adj-function selectors-word-type" value="adj">adjective</button>
+				<button id="selector-wor-adv" class="adv-function selectors-word-type" value="adv">adverb</button>
+			</div>
+
+			<div id="selectors-phrase-type" class="selectors">Form:
+				<button id="selector-phr-pre" class="pre-function selectors-phrase-type" value="pre">prepositional</button>
+				<button id="selector-phr-par" class="par-function selectors-phrase-type" value="par">participle</button>
+				<button id="selector-phr-ger" class="ger-function selectors-phrase-type" value="ger">gerund</button>
+				<button id="selector-phr-inf" class="inf-function selectors-phrase-type" value="inf">infinitive</button>
+			</div>
+
+			<div id="selectors-clause-type" class="selectors">Form: 
+				<button id="selector-cla-adv" class="avc-function selectors-clause-type" value="adv">adverb</button>
+				<button id="selector-cla-adj" class="ajc-function selectors-clause-type" value="adj">adjective</button>
+				<button id="selector-cla-nou" class="noc-function selectors-clause-type" value="nou">noun</button>
+			</div>
+
+			<div id="selectors-function" class="selectors">Function: 
+				<button id="selector-maj" class="ajc-function inf-function par-function pre-function adj-function selectors-function" value="maj" title="Modifier - Adjective">AdjM</button>
+				<button id="selector-mav" class="avc-function inf-function pre-function adv-function selectors-function" value="mav" title="Modifier - Adverb">AdvM</button>
+				<button id="selector-sub" class="noc-function inf-function ger-function pro-function nou-function selectors-function" value="sub" title="Subject">S</button>
+				<button id="selector-bvb" class="ver-function selectors-function" value="bvb" title="To Be Verb">BV</button>
+				<button id="selector-lvb" class="ver-function selectors-function" value="lvb" title="Linking Verb">LV</button>
+				<button id="selector-ivb" class="ver-function selectors-function" value="ivb" title="Intransitive Action Verb">IV</button>
+				<button id="selector-tvb" class="ver-function selectors-function" value="tvb" title="Transitive Action Verb">TV</button>
+				<button id="selector-avt" class="avc-function pre-function adv-function selectors-function" value="avt" title="Adverb of Time">AdvT</button>
+				<button id="selector-avp" class="avc-function pre-function adv-function selectors-function" value="avp" title="Adverb of Place">AdvP</button>
+				<button id="selector-pad" class="inf-function par-function pre-function adj-function selectors-function" value="pad" title="Predicate Adjective">PA</button>
+				<button id="selector-pno" class="noc-function inf-function ger-function pro-function nou-function selectors-function" value="pno" title="Predicate Nominative">PN</button>
+				<button id="selector-dob" class="noc-function inf-function ger-function pro-function nou-function selectors-function" value="dob" title="Direct Object">DO</button>
+				<button id="selector-iob" class="noc-function ger-function pro-function nou-function selectors-function" value="iob" title="Indirect Object">IO</button>
+				<button id="selector-oca" class="inf-function par-function pre-function adj-function selectors-function" value="oca" title="Object Complement Adjective">OCA</button>
+				<button id="selector-ocn" class="noc-function inf-function ger-function pro-function nou-function selectors-function" value="ocn" title="Object Complement Nominative">OCN</button>
+				<button id="selector-obp" class="noc-function ger-function pro-function nou-function selectors-function" value="obp" title="Object of Preposition">OP</button>
+			</div>
+
+			<div id="selectors-pattern" class="selectors">Pattern: 
+				<button id="selector-pat-1" class="selectors-pattern" value="one" title="Pattern 1 (S-BV-AdvT/AdvP)">1</button>
+				<button id="selector-pat-2" class="selectors-pattern" value="two" title="Pattern 2 (S-BV-PA)">2</button>
+				<button id="selector-pat-3" class="selectors-pattern" value="thr" title="Pattern 3 (S-BV-PN)">3</button>
+				<button id="selector-pat-4" class="selectors-pattern" value="fou" title="Pattern 4 (S-LV-PA)">4</button>
+				<button id="selector-pat-5" class="selectors-pattern" value="fiv" title="Pattern 5 (S-LV-PN)">5</button>
+				<button id="selector-pat-6" class="selectors-pattern" value="six" title="Pattern 6 (S-AV)">6</button>
+				<button id="selector-pat-7" class="selectors-pattern" value="sev" title="Pattern 7 (S-AV-DO)">7</button>
+				<button id="selector-pat-8" class="selectors-pattern" value="eig" title="Pattern 8 (S-AV-IO-DO)">8</button>
+				<button id="selector-pat-9" class="selectors-pattern" value="nin" title="Pattern 9 (S-AV-DO-OCA)">9</button>
+				<button id="selector-pat-10" class="selectors-pattern" value="ten" title="Pattern 10 (S-AV-DO-OCN)">10</button>
+			</div> 
+
+			<div id="selector-submit-button" class="selectors">
+				<button class="selector-submit-button" value="submit">Submit Selectors!</button>
+			</div> 
+		</div> <!--close "selector-container-stage"-->
+<!--Persistent-->		<div id="session-save"><button id="save-current-sentence"></button> <button id="assign-sent-features">Assign sentence features</button></div>
+<!--Alternate-->		<div id="elements-selected-tree">
+			<div class="element-list-instructions">Current sentence elements (click "[ X ]" to delete):</div>
+			<div id="element-list-tree"></div>
+			<div class="parser-help"></div>
+			<div class="parser-error"></div>
+		</div> <!--close "elements-selected-tree"-->
+<!--Persistent-->		<div id="active-sentence-list"></div>
+<!--Persistent-->		<button id="save-json">Download active sentence list</button>
+<!--Persistent-->		<footer id="horton">
+			&copy; 2026 Matthew Horton<br />
+			<a href="https://github.com/gschorton/sentence-markup">Sentence Markup on GitHub</a>
+		</footer>
+	</div>  <!--close "code-generator"-->
+<!--Alternate-->	<div id="sentence-stager">
+			<div id="sentence-stage"></div>
+
+	<div id="elements-selected-stage">
+		<div class="element-list-instructions">Current sentence elements (click "[ X ]" to delete):</div>
+		<div id="element-list-stage"></div>
+		<div class="parser-help"></div>
+		<div class="parser-error"></div>
 	</div>
+			<div id="bracket-buttons" class="hidden-buttons">
+				<button id="prepositional" class="bracket-buttons">Prepositional Phrases</button>
+				<button id="participle" class="bracket-buttons">Participle Phrases</button>
+				<button id="gerund" class="bracket-buttons">Gerund Phrases</button>
+				<button id="infinitive" class="bracket-buttons">Infinitive Phrases</button>
+				<button id="adverb" class="bracket-buttons">Adverb Clauses</button>
+				<button id="adjective" class="bracket-buttons">Adjective Clauses</button>
+				<button id="noun" class="bracket-buttons">Noun Clauses</button>
+				<button id="verbal-types" class="bracket-buttons">Show Verbals</button>
+				<button id="clause-types" class="bracket-buttons">Show Clauses</button>
+				<button id="word-noun" class="bracket-buttons">Nouns</button>
+				<button id="word-pronoun" class="bracket-buttons">Pronouns</button>
+				<button id="word-verb" class="bracket-buttons">Verbs</button>
+				<button id="word-adverb" class="bracket-buttons">Adverbs</button>
+				<button id="word-adjective" class="bracket-buttons">Adjectives</button>
+				<button id="all-types" class="bracket-buttons">Show All</button>
+				<button id="no-types" class="bracket-buttons">Hide All</button>
+			</div>
+	</div> <!--close "sentence-stager"-->
 
 <!--	This section is a slightly adapted version of index.html
 		from jssyntaxtree. Remove "tip" div and changed default sentence
- 		See footer for copyright and github link			-->
+ 		See footer for copyright and github link		-->
 
-	<div id="tree-maker">
+<!--Alternate-->	<div id="tree-maker">
 		<div id="options">
 			<div class="option">
 				<input type="checkbox" id="nodecolor" checked="checked" />
@@ -236,5 +515,5 @@
 			<a href="https://github.com/int2str/jssyntaxtree">https://github.com/int2str/jssyntaxtree</a>
 			<div id="version">&nbsp;</div>
 		</footer>
-	</div>
-</div>
+	</div> <!--close "tree-maker"-->
+</div> <!--close "wrapper"-->
