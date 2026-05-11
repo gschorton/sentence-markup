@@ -8,15 +8,22 @@ import $ from './jquery-cdn.js';
 import { active_sentences } from './save-current-sentence.mjs';
 
 export function downloadJSON() {
-	let sentences_array_download = JSON.parse(JSON.stringify(active_sentences));
-	for (let i = 0; i < sentences_array_download.length; i++) {
-		delete sentences_array_download[i].id;
-	}
+
+	// Map to remove id and minify keys
+	let sentences_download = active_sentences
+	.map((obj)=> ({
+		t: obj.type,
+		p: obj.patterns,
+		w: obj.words,
+		wc: obj.classes,
+		tn: obj.nodes,
+		ta: obj.arrows
+	}));
 
 	let timestamp = new Date().toISOString().replace(/[:.]/g, '-');
 	$("<a />", {
 		"download": "sentences-" + timestamp + ".json",
-		"href": "data:application/json," + encodeURIComponent(JSON.stringify(sentences_array_download))
+		"href": "data:application/json," + encodeURIComponent(JSON.stringify(sentences_download))
 	}).appendTo("body").click(function () {
 		$(this).remove()
 	})[0].click()

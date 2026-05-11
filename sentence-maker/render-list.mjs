@@ -18,17 +18,17 @@ export function renderList(items) {
 	let sentence_filter_main = [];
 
 	// Build results display from "items" passed in
-	// Loops through to build and push 
+	// Loops through to build and add to list 
 	for (let i=0; i<items.length; i++){
 		let marked_sentence = "";
-		if(Object.keys(items[i].c).length > 0){
+		if(Object.keys(items[i].classes).length > 0 || Object.keys(items[i].nodes).length > 0){
 			marked_sentence = "already-marked";
 		}
 		let new_item = $( "<li/>", {
 			"class": "sent-obj " + marked_sentence,
 			"data-id": items[i].id,					// get index of original object
 			"data-filtered": i,						// set id of filtered set
-			text: items[i].w.join(" ")				// just to display the sentence
+			text: items[i].words.join(" ")			// just to display the sentence
 		});
 		new_item.html(function(index, old_html){
 			return old_html.replace(/—\s+/g, '—')
@@ -61,7 +61,6 @@ export function renderList(items) {
 	$('#paginate-results').pagination({
 		dataSource: sentence_filter_results,
 		callback: function(data, pagination) {
-			// template method of yourself
 			$('#results-list').html(data);
 		}
 	})
@@ -81,10 +80,10 @@ export function renderList(items) {
 	}
 	
 	// Bind click event for both lists
-	$(document).on('click', '.sent-obj', function() {
+	$(document).off('click', '.sent-obj').on('click', '.sent-obj', function() {
 		$(".loaded").removeClass("loaded");
 		$('[data-id='+$(this).data("id")+']').addClass("loaded");
-		let data = $(this).data("filtered"); // Automatically parses JSON strings into objects
+		let data = $(this).data("filtered");
 		loadSentenceObject(items[data]);
 	});
 	

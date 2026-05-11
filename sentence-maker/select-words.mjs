@@ -11,7 +11,7 @@ import {clearSelection} from './main.js';
 export let selected_indices = [];
 export let indicesChanged = [];
 
-export function selectWords(callback) {
+export function selectWords() {
 
 	// variables to prevent unwanted 'click' behavior
 	let isDragging = false;
@@ -49,6 +49,11 @@ export function selectWords(callback) {
 		isDragging = false;
 		indicesChanged.length = 1;
 
+		// Even the first click reveals the selector buttons
+		$(".selected").removeClass("selected");					
+		$(".selectors").removeClass("visible");
+		$("#selectors-category").addClass("visible");
+		
 		// If click clears the last selected, class selectors disappear
 		if($('.ui-selected').length === 0){
 			$("#selectors-category").removeClass("visible");

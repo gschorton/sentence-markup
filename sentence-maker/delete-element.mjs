@@ -4,7 +4,7 @@
 // Function to delete elements already marked in sentence
 
 import $ from './jquery-cdn.js';
-import { sentence_object } from './main.js';
+import { sentence_object, user_interface } from './main.js';
 import { restoreSentenceMarkup } from './restore-sentence-markup.mjs';
 
 export function deleteElement(j) {
@@ -12,13 +12,15 @@ export function deleteElement(j) {
 		$(".highlighted").removeClass("highlighted");	//remove highlighting from sent-words
 		$(".bracket-buttons").removeClass("visible");	//hide bracket buttons
 		
-		let key = Object.keys(sentence_object.c)[j];
-
-	// remove key for class from object
-	if (Array.isArray(sentence_object.c[key])) {
-			delete sentence_object.c[key];
+		// Delete tree_node or word_class based on user option
+		if (user_interface === "make-trees") {
+			let key = Object.keys(sentence_object.nodes)[j];
+			delete sentence_object.nodes[key];
+			delete sentence_object.arrows[j];
+		}else if (user_interface === "stage-sentences") {
+			let key = Object.keys(sentence_object.classes)[j];
+			delete sentence_object.classes[key];
 		}
-		delete sentence_object.be[j];
 		restoreSentenceMarkup();
 	};
 }

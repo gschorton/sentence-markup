@@ -11,104 +11,216 @@
 // Also tests for crossed bracket sets in case of parser error
 
 import $ from './jquery-cdn.js';
-import {bracketWrapper,sentence_object} from './main.js';
+import { bracketWrapper, sentence_object, user_interface, revealLabel, bracket_classes } from './main.js';
 
 export let brackets_added = [];
 
-export function addBrackets(){
+export function addBrackets() {
 
 	// Empty brackets_added array
 	brackets_added.length = 0;
 
+	// Reveal buttons to show brackets
+	$("#bracket-buttons").addClass("visible");
+
 	// Remove all bracket elements from DOM
-	$(".bracket").remove();
 
 	// Create bracket sets for each class stored in sentence_object
 	// First check if there are any stored classes
-	if(Object.keys(sentence_object.c).length > 0){
-		
-		// Loop through the classes to create brackets for each
-		// Creates open and close brackets and appends to DOM
-		// before and after first and last word, respectively
-		for (let i=0; i<Object.keys(sentence_object.c).length; i++){
+	let word_classes = Object.keys(sentence_object.classes);
+	let all_class_indices = Object.values(sentence_object.classes);
+	let tree_nodes = Object.keys(sentence_object.nodes);
+	let all_node_indices = Object.values(sentence_object.nodes);
 
-			let word_class = Object.keys(sentence_object.c)[i];
-			let indices = Object.values(sentence_object.c)[i];
-			let bracket_end_label = sentence_object.be[i];
+	// Check for existing classes
 
-			// Adds word class and creates head label based on it
-			// Taking substring of class because class has other
-			// information to help with sorting in earlier step
-			let $open_bracket = $('<span/>', {
-				"class": "bracket bracket-start-" + i + " " + word_class,
-				text: "[" + word_class.split("-")[0].substring(1) + " "
-			});
+	if (user_interface === "make-trees") {
+		$(".bracket-tree").remove();
+		if (tree_nodes.length > 0) {
 
-			// Added ability to add arrow code to end bracket
-			// ->, <-, or <>, followed by column number
-			// If present in sentence object, added to end bracket
-			if(bracket_end_label === undefined){
-				bracket_end_label = "";
-			}else{
-				bracket_end_label = " "+bracket_end_label;
+			// Loop through the classes to create brackets for each
+			// Creates open and close brackets and appends to DOM
+			// before and after first and last word, respectively
+			for (let i = 0; i < tree_nodes.length; i++) {
+
+				let tree_node = tree_nodes[i];
+				let node_indices = all_node_indices[i];
+				let tree_arrow = sentence_object.arrows[i];
+
+				// Adds word class and creates head label based on it
+				// Taking substring of class because class has other
+				// information to help with sorting in earlier step
+				let $open_bracket = $('<span/>', {
+					"class": "bracket-tree bracket-start-" + i + " " + tree_node,
+					text: "[" + tree_node.split("-")[0].substring(1) + " "
+				});
+
+				// Added ability to add arrow code to end bracket
+				// ->, <-, or <>, followed by column number
+				// If present in sentence object, added to end bracket
+				if (tree_arrow === undefined) {
+					tree_arrow = "";
+				} else {
+					tree_arrow = " " + tree_arrow;
+				}
+				let $close_bracket = $('<span/>', {
+					"class": "bracket-tree bracket-end-" + i + " " + tree_node,
+					text: tree_arrow + "]"
+				});
+
+				// Place open and close brackets before and after words
+				// Will drop punctuation before sending to tree maker
+				// Allows for special characters in labels
+				$(".sent-word." + $.escapeSelector(tree_node)).first().before($open_bracket);
+				$(".sent-word." + $.escapeSelector(tree_node)).last().after($close_bracket);
+
+				// Bind each bracket to function for highlighting
+				$(".bracket-start-" + i).hover(bracketWrapper(i));
+				$(".bracket-end-" + i).hover(bracketWrapper(i));
+				// Add bracket information to array for additional checks
+				brackets_added[i] = ["bracket-start-" + i, "bracket-end-" + i, tree_node, node_indices];
+				$("#show-hide-brackets").show().text("Hide brackets");
 			}
-			let $close_bracket = $('<span/>', {
-				"class": "bracket bracket-end-" + i + " " + word_class,
-				text: bracket_end_label+"]"
-			});
-
-			// Place open and close brackets before and after words
-			// Will drop punctuation before sending to tree maker
-			// Allows for special characters in labels
-			$(".sent-word." + $.escapeSelector(word_class)).first().before($open_bracket);
-			$(".sent-word." + $.escapeSelector(word_class)).last().after($close_bracket);
-
-			// Bind each bracket to function for highlighting
-			$(".bracket-start-" + i).hover(bracketWrapper(i));
-			$(".bracket-end-" + i).hover(bracketWrapper(i));
-			// Add bracket information to array for additional checks
-			brackets_added[i] = ["bracket-start-"+i,"bracket-end-"+i,word_class,indices];
-			$("#show-hide-brackets").show().text("Hide brackets");
 		}
-
 		// Find overlapping brackets to point out mistakes
-		if(brackets_added.length >1){
-			for (let i=0; i<brackets_added.length-1; i++){
-				for (let j=i+1; j<brackets_added.length; j++){
+		if (brackets_added.length > 1) {
+			for (let i = 0; i < brackets_added.length - 1; i++) {
+				for (let j = i + 1; j < brackets_added.length; j++) {
 					let a_seq = brackets_added[i][3];
 					let b_seq = brackets_added[j][3];
 
 					// Series of tests to make sure that any set of brackets
 					// is entirely inside or entirely outside any other set
-					if(a_seq.length > 1 && b_seq.length > 1 && a_seq.length === b_seq.length){
-						if(a_seq.some(item => b_seq.includes(item)) && !a_seq.every(item => b_seq.includes(item))){
+					if (a_seq.length > 1 && b_seq.length > 1 && a_seq.length === b_seq.length) {
+						if (a_seq.some(item => b_seq.includes(item)) && !a_seq.every(item => b_seq.includes(item))) {
 							brackets_added[i].push("mistake");
 							brackets_added[j].push("mistake");
 						}
-					}else if(a_seq.length > 1 && b_seq.length > 1 && a_seq.length > b_seq.length){
-						if(b_seq.some(item => a_seq.includes(item)) && !b_seq.every(item => a_seq.includes(item))){
+					} else if (a_seq.length > 1 && b_seq.length > 1 && a_seq.length > b_seq.length) {
+						if (b_seq.some(item => a_seq.includes(item)) && !b_seq.every(item => a_seq.includes(item))) {
 							brackets_added[i].push("mistake");
 							brackets_added[j].push("mistake");
-						}						
-					}else if(a_seq.length > 1 && b_seq.length > 1 && a_seq.length < b_seq.length){
-						if(a_seq.some(item => b_seq.includes(item)) && !a_seq.every(item => b_seq.includes(item))){
+						}
+					} else if (a_seq.length > 1 && b_seq.length > 1 && a_seq.length < b_seq.length) {
+						if (a_seq.some(item => b_seq.includes(item)) && !a_seq.every(item => b_seq.includes(item))) {
 							brackets_added[i].push("mistake");
 							brackets_added[j].push("mistake");
-						}						
+						}
 					}
 				}
 			}
-		}			
+		}
 
 		// Add shared classes for nested bracket set highlighting
-		if(brackets_added.length >1){
+		if (brackets_added.length > 1) {
 			let excluded_classes = ["sent-word", "selectable"];
-			for (let i=0; i<brackets_added.length-1; i++){
-				for (let j=i+1; j<brackets_added.length; j++){
-					if(brackets_added[j][3].every(item => brackets_added[i][3].includes(item))){
-						$("."+brackets_added[j][0]+", ."+brackets_added[j][1]).addClass(brackets_added[i][2]);
-					}else if(brackets_added[i][3].every(item => brackets_added[j][3].includes(item))){
-						$("."+brackets_added[i][0]+", ."+brackets_added[i][1]).addClass(brackets_added[i][2]);
+			for (let i = 0; i < brackets_added.length - 1; i++) {
+				for (let j = i + 1; j < brackets_added.length; j++) {
+					if (brackets_added[j][3].every(item => brackets_added[i][3].includes(item))) {
+						$("." + brackets_added[j][0] + ", ." + brackets_added[j][1]).addClass(brackets_added[i][2]);
+					} else if (brackets_added[i][3].every(item => brackets_added[j][3].includes(item))) {
+						$("." + brackets_added[i][0] + ", ." + brackets_added[i][1]).addClass(brackets_added[i][2]);
+					}
+				}
+			}
+		}
+	}
+
+	if (user_interface === "stage-sentences") {
+		$(".bracket").remove();
+		if (word_classes.length > 0) {
+
+			for (let i = 0; i < word_classes.length; i++) {
+
+				let word_class = word_classes[i];
+				let indices = all_class_indices[i];
+
+				if (indices.length > 1 && word_class.substring(0, 3) != "wor") {
+					let $open_bracket = $('<span/>', {
+						"class": "bracket bracket-start bracket-start-" + i + " " + word_class.substr(0, 7),
+						text: "[",
+					});
+
+					let $close_bracket = $('<span/>', {
+						"class": "bracket bracket-end bracket-end-" + i + " " + word_class.substr(0, 7),
+						text: "]",
+					});
+
+					// Account for elements with words that are not continguous
+					if (indices[1] - indices[0] > 1) {
+
+						let separate_head_ob = $open_bracket.clone(false);
+						let separate_head_cb = $close_bracket.clone(false);
+						$(".sent-word." + word_class).first().before(separate_head_ob);
+						$(".sent-word." + word_class).first().after(separate_head_cb);
+						$(".sent-word." + word_class).eq(1).before($open_bracket);
+
+					} else {
+						$(".sent-word." + word_class).first().before($open_bracket);
+					}
+					//$(".sent-word."+Object.keys(sentence_object.c)[i]).first().before($open_bracket);
+					$(".sent-word." + word_class).last().after($close_bracket);
+
+					//bind each bracket to a hover event
+					//to toggle highlighting of contained words
+
+					$(".bracket-start-" + i).hover(bracketWrapper(i));
+					$(".bracket-end-" + i).hover(bracketWrapper(i));
+					$(".bracket-start-" + i).hover(revealLabel(i));
+					$(".bracket-end-" + i).hover(revealLabel(i));
+
+					brackets_added.push(["bracket-start-" + i, "bracket-end-" + i, word_class, indices]);
+				}
+			}
+
+			// Show/hide buttons for brackets based on presence in sentence
+			for (let i = 0; i < bracket_classes.length; i++) {
+				if ($("span").hasClass(bracket_classes[i][0])) {
+					$("#" + bracket_classes[i][1]).addClass("visible");
+					$("#" + bracket_classes[i][1]).removeClass("active");
+				}
+			}
+
+			if ($("span").hasClass("phr-par") || $("span").hasClass("phr-ger") || $("span").hasClass("phr-inf")) {
+				$("#verbal-types").addClass("visible");
+			}
+
+			if ($("span").hasClass("cla-adj") || $("span").hasClass("cla-adv") || $("span").hasClass("cla-nou")) {
+				$("#clause-types").addClass("visible");
+			}
+
+			$("#all-types").addClass("visible");
+			$("#no-types").addClass("visible");
+
+			// Find overlapping brackets to point out mistakes
+			let bracket_mistake = "false";
+			if (brackets_added.length > 1) {
+				for (let i = 0; i < brackets_added.length - 1; i++) {
+					for (let j = i + 1; j < brackets_added.length; j++) {
+						let a_seq = brackets_added[i][3];
+						let b_seq = brackets_added[j][3];
+
+						// Series of tests to make sure that any set of brackets
+						// is entirely inside or entirely outside any other set
+						if (a_seq.length > 1 && b_seq.length > 1 && a_seq.length === b_seq.length) {
+							if (a_seq.some(item => b_seq.includes(item)) && !a_seq.every(item => b_seq.includes(item))) {
+								brackets_added[i].push("mistake");
+								brackets_added[j].push("mistake");
+								bracket_mistake = "true";
+							}
+						} else if (a_seq.length > 1 && b_seq.length > 1 && a_seq.length > b_seq.length) {
+							if (b_seq.some(item => a_seq.includes(item)) && !b_seq.every(item => a_seq.includes(item))) {
+								brackets_added[i].push("mistake");
+								brackets_added[j].push("mistake");
+								bracket_mistake = "true";
+							}
+						} else if (a_seq.length > 1 && b_seq.length > 1 && a_seq.length < b_seq.length) {
+							if (a_seq.some(item => b_seq.includes(item)) && !a_seq.every(item => b_seq.includes(item))) {
+								brackets_added[i].push("mistake");
+								brackets_added[j].push("mistake");
+								bracket_mistake = "true";
+							}
+						}
 					}
 				}
 			}

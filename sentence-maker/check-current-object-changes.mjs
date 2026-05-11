@@ -9,30 +9,32 @@ import {active_sentences} from './save-current-sentence.mjs'
 // Function to get current sentence object
 // Compare to matching active object to see if changed
 
-export function checkCurrentObjectChanges(item){
+export function checkCurrentObjectChanges(obj){
 
 	// Default condition for button
 	$('#save-current-sentence').html("Save sentence to active list");
-	let new_save_t = item.t;
-	let new_save_p = JSON.stringify(item.p);
-	let new_save_w = JSON.stringify(item.w);
-	let new_save_c = JSON.stringify(item.c);
-	let new_save_be = JSON.stringify(item.be);
+	let new_save_type = obj.type;
+	let new_save_patterns = JSON.stringify(obj.patterns);
+	let new_save_words = JSON.stringify(obj.words);
+	let new_save_classes = JSON.stringify(obj.classes);
+	let new_save_nodes = JSON.stringify(obj.nodes);
+	let new_save_arrows = JSON.stringify(obj.arrows);
 	
 	// Change button if sentence is already active
 	for(let i=0; i<active_sentences.length; i++){	
 		
-		let saved_w = JSON.stringify(active_sentences[i].w);
+		let saved_words = JSON.stringify(active_sentences[i].words);
 		// Ids or words match
-		if(active_sentences[i].id === item.id || saved_w === new_save_w){
+		if(active_sentences[i].id === obj.id || saved_words === new_save_words){
 
 			// Check other parts of object for differences
-			let saved_t = active_sentences[i].t;
-			let saved_p = JSON.stringify(active_sentences[i].p);
-			let saved_c = JSON.stringify(active_sentences[i].c);
-			let saved_be = JSON.stringify(active_sentences[i].be);
+			let saved_type = active_sentences[i].type;
+			let saved_patterns = JSON.stringify(active_sentences[i].patterns);
+			let saved_classes = JSON.stringify(active_sentences[i].classes);
+			let saved_nodes = JSON.stringify(active_sentences[i].nodes);
+			let saved_arrows = JSON.stringify(active_sentences[i].arrows);
 
-			if(saved_t === new_save_t && saved_p === new_save_p && saved_c === new_save_c && saved_be === new_save_be){
+			if(saved_type === new_save_type && saved_patterns === new_save_patterns && saved_classes === new_save_classes && saved_nodes === new_save_nodes && saved_arrows === new_save_arrows){
 				$('#save-current-sentence').html("Sentence updated!");
 
 				// Assign "loaded" class to sentence currently loaded for markup
@@ -41,7 +43,7 @@ export function checkCurrentObjectChanges(item){
 					$('.sent-obj-active[data-id='+data_id+']').addClass("loaded");
 					$('.sent-obj[data-id='+data_id+']').addClass("loaded");
 				} 
-			}else if(item.t === "" && item.p.length === 0 && Object.keys(item.c).length === 0 && Object.keys(item.be).length === 0){
+			}else if(obj.type === "" && obj.patterns.length === 0 && Object.keys(obj.classes).length === 0 && Object.keys(obj.nodes).length === 0 && Object.keys(obj.arrows).length === 0){
 				loadSentenceObject(active_sentences[i]);
 			}else {
 				$('#save-current-sentence').html("Update sentence in active list");

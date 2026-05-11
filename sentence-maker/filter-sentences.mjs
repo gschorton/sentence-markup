@@ -118,19 +118,19 @@ export function filterSentences() {
 	// Stored functions grouped in different filter arrays
 	// Called (or not) based on filtering options 
 	let filterBySentenceMarked = (obj) => {
-		return fil_sen_mar_checked.length === 0 || Object.keys(obj.c).length > 0;
+		return fil_sen_mar_checked.length === 0 || (Object.keys(obj.classes).length > 0 || Object.keys(obj.nodes).length > 0);
 	};
 
 	let filterBySentenceType = (obj) => {
-		return fil_sen_typ_checked.length === 0 || fil_sen_typ_checked.some(item => obj.t.includes(item));
+		return fil_sen_typ_checked.length === 0 || fil_sen_typ_checked.some(item => obj.type.includes(item));
 	};
 
 	let filterBySentencePattern = (obj) => {
-		return fil_sen_pat_checked.length === 0 || fil_sen_pat_checked.some(item => obj.p.includes(item));
+		return fil_sen_pat_checked.length === 0 || fil_sen_pat_checked.some(item => obj.patterns.includes(item));
 	};
 
 	let filterBySentenceLength = (obj) => {
-		let obj_sen_len = obj.w.length;
+		let obj_sen_len = obj.words.length;
 		if(fil_sen_len_min >= 0 && fil_sen_len_max >= fil_sen_len_min){
 			$("#error-len").html("");
 			return obj_sen_len >= fil_sen_len_min && obj_sen_len <= fil_sen_len_max;
@@ -140,7 +140,7 @@ export function filterSentences() {
 	};
 
 	let filterBySentencePunctuation = (obj) => {
-		let obj_sen_pun = [...obj.w];
+		let obj_sen_pun = [...obj.words];
 
 		// Clean each element of word array of character but punctuation input
 		// Remove empty elements from word array
@@ -156,7 +156,7 @@ export function filterSentences() {
 	};
 
 	let filterBySentenceWords = (obj) => {
-		let obj_sen_wor = [...obj.w];
+		let obj_sen_wor = [...obj.words];
 
 		// Clean object array of non-word characters
  		for(let i=0; i < obj_sen_wor.length; i++){
@@ -182,7 +182,7 @@ export function filterSentences() {
 	};
 
 		let filterBySentenceStrings = (obj) => {
-		let obj_sen_wor = [...obj.w].join(" ");
+		let obj_sen_wor = [...obj.words].join(" ");
 
 		// Clean object array of non-word characters
 		obj_sen_wor = obj_sen_wor.toLowerCase().replace(/[.,\/#!?$%\^&\*;:{}=_—`~()“”\"]+/g, "");
@@ -205,7 +205,7 @@ export function filterSentences() {
 
 	// Function to get each sentence object class
 	function getClasses(item){
-		let obj_sen_cls = Object.keys(item.c).join(" ");
+		let obj_sen_cls = Object.keys(item.classes).join(" ");
 		return obj_sen_cls;
 	}
 	

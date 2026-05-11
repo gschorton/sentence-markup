@@ -8,31 +8,43 @@
 // Other formatting to make highlighting consistent and fluid
 
 import $ from './jquery-cdn.js';
-import {sentence_object} from './main.js';
+import {sentence_object, hideBracketButtons, user_interface} from './main.js';
 import {getClassesbyIndex} from './get-classes-by-index.mjs';
 import {checkCurrentObjectChanges} from './check-current-object-changes.mjs'
-
+import { loadStage } from './load-stage.mjs';
+import { loadTree } from './load-tree.mjs';
 
 export function loadSentence() {
 
 	// Clear out sentence mark-up area
 	$("#start-input").empty();
-	$("#element-list-instructions").hide();
-	$("#element-list").empty();
-	$("#parser-help").hide();
-	$("#parser-error").hide();
-	$("#selector-container").show();
+	$("#sentence-stage").empty();
+	$(".element-list-instructions").hide();
+	$(".labels").remove();
+	$("#element-list-tree").empty();
+	$("#element-list-stage").empty();
+	$(".parser-help").hide();
+	$(".parser-error").hide();
+	$("#session-save").show();
+	$("#show-hide-brackets").hide().text("Hide brackets");
+	hideBracketButtons();			//hide bracket buttons
+
+	if (user_interface === "make-trees") {
+		$("#selector-container-tree").show();
+	}else if (user_interface === "stage-sentences") {
+		$("#selector-container-stage").show();
+	}
 
 	// Update sentence type and pattern selectors when loading a sentence object
 		$(".selectors-sen-typ").removeClass("sen-selected")		
-		if(sentence_object.t.length === 2){
-			$(".selectors-sen-typ[value="+sentence_object.t+"]").addClass("sen-selected");	
+		if(sentence_object.type.length === 2){
+			$(".selectors-sen-typ[value="+sentence_object.type+"]").addClass("sen-selected");	
 		}
 		
 		$(".selectors-sen-pat").prop("checked", false);	
-		if(sentence_object.p.length > 0){
-			for (let i=0; i<sentence_object.p.length; i++){
-				let pattern_tocheck = sentence_object.p[i].toString();
+		if(sentence_object.patterns.length > 0){
+			for (let i=0; i<sentence_object.patterns.length; i++){
+				let pattern_tocheck = sentence_object.patterns[i].toString();
 				$(".selectors-sen-pat[value="+pattern_tocheck+"]").prop("checked", true);	
 			}
 		}
@@ -45,11 +57,11 @@ export function loadSentence() {
 	$id_match.appendTo("#start-input"); 
 
 	// Populate sentence mark-up area with spans containing all existing words and classes
-	for (let i=0; i<sentence_object.w.length; i++){
+	for (let i=0; i<sentence_object.words.length; i++){
 		let $word = $('<span/>', {
 			"class": getClassesbyIndex(i),
-			"id": "sent-word-" + i,
-			text: sentence_object.w[i]
+//			"id": "sent-word-" + i,
+			text: sentence_object.words[i]
 		});
 
 		let $space = $('<span/>', {
@@ -85,21 +97,36 @@ export function loadSentence() {
 		$(this).text(cleanText);
 	});
 
-	// Check if sentence_object is original condition of brand new sentence
-	// If so, clear out elements from the DOM when starting over
- 	if (Object.keys(sentence_object.c).length < 1) {
-		$("#element-list").empty();
-		$("#show-hide-brackets").hide().text("Hide brackets");
-	} 
-
 	// Add classes to spaces and puncs between words with those classes
- 	for (let i=0; i<Object.keys(sentence_object.c).length; i++){
-		let word_class = Object.keys(sentence_object.c)[i];
-		$('.space, .punc').each(function () {
-			if($(this).prevAll(".sent-word").first().hasClass(word_class) && $(this).nextAll(".sent-word").first().hasClass(word_class)){
-				$(this).addClass(word_class);
-			}
-		});
+	let word_classes = Object.keys(sentence_object.classes);
+	let tree_nodes = Object.keys(sentence_object.nodes);
+
+	if (user_interface === "make-trees") {
+		for (let i = 0; i < tree_nodes.length; i++) {
+			let tree_node = tree_nodes[i];
+			$('.space, .punc').each(function () {
+				if ($(this).prevAll(".sent-word").first().hasClass(tree_node) && $(this).nextAll(".sent-word").first().hasClass(tree_node)) {
+					$(this).addClass(tree_node);
+				}
+			});
+		}
+	}
+
+	if (user_interface === "stage-sentences") {
+		for (let i = 0; i < word_classes.length; i++) {
+			let word_class = word_classes[i];
+			$('.space, .punc').each(function () {
+				if ($(this).prevAll(".sent-word").first().hasClass(word_class) && $(this).nextAll(".sent-word").first().hasClass(word_class)) {
+					$(this).addClass(word_class);
+				}
+			});
+
+			$(".space, .sent-word").each(function () {
+				if ($(this).hasClass(word_class)) {
+					$(this).addClass(word_class.substr(0, 7));
+				}
+			});
+		}
 	}
 	
 	console.log("Sentence with id '"+sentence_object.id+"' loaded for markup.");

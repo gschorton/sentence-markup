@@ -5,21 +5,25 @@
 // Order of these functions is set to update DOM and sentence_object
 
 import $ from './jquery-cdn.js';
-import { assignWordClasses } from './assign-word-classes.mjs';
-import { sortWordClasses } from './sort-word-classes.mjs';
+import { assignClasses } from './assign-classes.mjs';
+import { sortClasses } from './sort-classes.mjs';
 import { addClasses } from './add-classes.mjs';
 import { loadSentence } from './load-sentence.mjs';
 import { addBrackets } from './add-brackets.mjs';
 import { updateElements } from './update-elements.mjs';
 import { sendSentence } from './send-sentence.mjs';
+import { createLabels } from './create-labels.mjs';
+import { shiftLabelPosition } from './shift-label-position.mjs';
 
 
 export function restoreSentenceMarkup(){
-	assignWordClasses();	// Add new specific classes to arrays for sorting
-	sortWordClasses();		// Function to sort word classes by frequency to control proper nesting
+	assignClasses();		// Add new specific classes to arrays for sorting
+	sortClasses();			// Function to sort classes by frequency to control proper nesting
 	addClasses();			// Function to add classes to sentence object
 	loadSentence();			// Load sentence into DOM
-	addBrackets();			// Function to create brackets to surround phrases and clauses
-	updateElements();		// Function to create or update list of elements
-	sendSentence();			// Function to send coded sentence to tree maker
+	createLabels();			// Only for Sentence Stager
+	addBrackets();			// Function to create brackets to surround words, phrases, clauses
+	updateElements();		// Function to create or update list of elements for removal
+	sendSentence();			// Function to send coded sentence to tree maker or sentence stager
+	shiftLabelPosition();	// Wait until sentence is "on stage"
 };

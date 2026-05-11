@@ -7,6 +7,7 @@
 
 import $ from './jquery-cdn.js';
 import {sentence_object} from './main.js';
+import { loadSentenceObject } from './load-sentence-object.mjs';
 
 export function createSentenceObject(){
 
@@ -17,11 +18,12 @@ export function createSentenceObject(){
 	// empty sentence_object and assign new session id
 	// id will not be part of downloaded object
 	sentence_object.id = "new-"+$(".sent-obj-new").length;
-	sentence_object.t = "";
-	sentence_object.p = [];
-	sentence_object.w = [];
-	sentence_object.c = {};
-	sentence_object.be = {};
+	sentence_object.type = "";
+	sentence_object.patterns = [];
+	sentence_object.words = [];
+	sentence_object.classes = {};
+	sentence_object.nodes = {};
+	sentence_object.arrows = {};
 
 	// empty sentence_words array
 	// // split text from input box into array by space
@@ -37,6 +39,7 @@ export function createSentenceObject(){
 	// Add words to sentence_object
 	// Starting condition of any new sentence_object
 	// Additional mark up updates sentence_object before saving to JSON
-	sentence_object.w = sentence_words;
+	sentence_object.words = sentence_words;
 	$(".loaded").removeClass("loaded");
+	loadSentenceObject(sentence_object);
 }

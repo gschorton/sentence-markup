@@ -13,6 +13,7 @@ export let indexed_sentences = [];
 export function getSentenceObjects(file){
 	
 	sentence_list.length = 0;
+//	indexed_sentences.length = 0;
 	
 	// Ensures most recent version instead of cached version
 	$.getJSON( "sentence-maker/sentence-files/"+file+"?t=" + Date.now(), function( data ) {
@@ -22,12 +23,18 @@ export function getSentenceObjects(file){
 		// Check for data before mapping and sending to renderList()
 		// Mapping to add unique id key to objects during session
 		// Unique id is "file_name-index" to avoid duplicate ids in session
+		// Change other keys to readable code
 		if(sentence_list.length > 0){
 			let file_name = file.split(".")[0];
 			indexed_sentences = sentence_list
 			.map((obj, index)=> ({
-				...obj,
-				id: file_name+"-"+index
+				id: file_name+"-"+index,
+				type: obj.t,
+				patterns: obj.p,
+				words: obj.w,
+				classes: obj.wc,
+				nodes: obj.tn,
+				arrows: obj.ta
 			}));
 			renderList(indexed_sentences);
 		}

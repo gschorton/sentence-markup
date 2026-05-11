@@ -19,12 +19,13 @@ export function loadSentenceObject(obj){
 	selected_indices.length = 0;
 
 	// Clone imported array to create new data reference
-	let clone_obj = JSON.parse(JSON.stringify(obj));
-	sentence_object.id = clone_obj.id;
-	sentence_object.t = clone_obj.t;
-	sentence_object.p = clone_obj.p;
-	sentence_object.w = clone_obj.w;
-	sentence_object.c = clone_obj.c;
-	sentence_object.be = clone_obj.be;
+	let new_obj = JSON.parse(JSON.stringify(obj));
+	sentence_object.id = new_obj.id;
+	sentence_object.type = new_obj.type;
+	sentence_object.patterns = new_obj.patterns;
+	sentence_object.words = new_obj.words;
+	sentence_object.classes = new_obj.classes;
+	sentence_object.nodes = new_obj.nodes;
+	sentence_object.arrows = new_obj.arrows;
 	restoreSentenceMarkup();
 }

@@ -22,7 +22,7 @@ export function showActiveSentences (items) {
 			"class": "sent-obj-active",
 			"data-id": items[i].id,
 			"data-active": i,
-			text: items[i].w.join(" ")	// just to display the sentence
+			text: items[i].words.join(" ")
 		});
 		
 		// Remove space after dash

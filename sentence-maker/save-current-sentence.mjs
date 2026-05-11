@@ -32,20 +32,23 @@ export function saveCurrentSentence (){
 		for (let i=0; i < active_sentences.length; i++){
 			if(active_sentences[i].id === current_sentence.id){
 				duplicate_id = true;
-				let saved_t = active_sentences[i].t;
-				let saved_p = JSON.stringify(active_sentences[i].p);
-				let saved_c = JSON.stringify(active_sentences[i].c);
-				let saved_be = JSON.stringify(active_sentences[i].be);
-				let new_save_t = current_sentence.t;
-				let new_save_p = JSON.stringify(current_sentence.p);
-				let new_save_c = JSON.stringify(current_sentence.c);
-				let new_save_be = JSON.stringify(current_sentence.be);
+				let saved_type = active_sentences[i].type;
+				let saved_patterns = JSON.stringify(active_sentences[i].patterns);
+				let saved_classes = JSON.stringify(active_sentences[i].classes);
+				let saved_nodes = JSON.stringify(active_sentences[i].nodes);
+				let saved_arrows = JSON.stringify(active_sentences[i].arrows);
+				let new_save_type = current_sentence.type;
+				let new_save_patterns = JSON.stringify(current_sentence.patterns);
+				let new_save_classes = JSON.stringify(current_sentence.classes);
+				let new_save_nodes = JSON.stringify(current_sentence.nodes);
+				let new_save_arrows = JSON.stringify(current_sentence.arrows);
 			
-				if(saved_t != new_save_t || saved_p != new_save_p || saved_c != new_save_c || saved_be != new_save_be){
-					active_sentences[i].t = current_sentence.t;
-					active_sentences[i].p = current_sentence.p;
-					active_sentences[i].c = current_sentence.c;
-					active_sentences[i].be = current_sentence.be;
+				if(saved_type != new_save_type || saved_patterns != new_save_patterns || saved_classes != new_save_classes || saved_nodes != new_save_nodes || saved_arrows != new_save_arrows){
+					active_sentences[i].type = current_sentence.type;
+					active_sentences[i].patterns = current_sentence.patterns;
+					active_sentences[i].classes = current_sentence.classes;
+					active_sentences[i].nodes = current_sentence.nodes;
+					active_sentences[i].arrows = current_sentence.arrows;
 				}
 			}
  		}

@@ -49,21 +49,21 @@ export function changeElementLabel (i,x,y) {
 
 	$(document).off('click', "#update-label").on('click', "#update-label", function(e) {
 		e.preventDefault();
-		let old_word_class = Object.keys(sentence_object.c)[i];
-		let indices = Object.values(sentence_object.c)[i];
+		let old_tree_node = Object.keys(sentence_object.nodes)[i];
+		let node_indices = Object.values(sentence_object.nodes)[i];
 		let new_label_start = $("#change-label-start").val().trim();
 		let new_label_end = $("#change-label-end").val().trim();
-		let new_word_class = old_word_class.replace(old_label_start, new_label_start);
+		let new_tree_node = old_tree_node.replace(old_label_start, new_label_start);
 
-		if(new_word_class != old_word_class){
-			sentence_object.c[new_word_class] = indices;
-			delete sentence_object.c[old_word_class];
+		if(new_tree_node != old_tree_node){
+			sentence_object.nodes[new_tree_node] = node_indices;
+			delete sentence_object.nodes[old_tree_node];
 		}
 
 		if(new_label_end === ""){
-			delete sentence_object.be[i];
+			delete sentence_object.arrows[i];
 		}else if(new_label_end != old_label_end){
-			sentence_object.be[i] = new_label_end;
+			sentence_object.arrows[i] = new_label_end;
 		}
 
 		$(".jquery-modal.blocker.current").removeClass("change-element");
