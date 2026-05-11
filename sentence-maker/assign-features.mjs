@@ -5,10 +5,8 @@
 // containing sentence feature selectors
 
 import $ from './jquery-cdn.js';
-import { sentence_object } from './main.js';
-import { restoreSentenceMarkup } from './restore-sentence-markup.mjs';
 
-export function assignSentenceFeatures (x,y) {
+export function assignFeatures (x,y) {
 
     $('#sent-type-pattern').modal();	
     $(".jquery-modal.blocker.current").addClass("sent-type-pattern");
